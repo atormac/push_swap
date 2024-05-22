@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:34:18 by atorma            #+#    #+#             */
-/*   Updated: 2024/04/22 16:47:29 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/22 22:26:03 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_atoi(const char *str)
 {
 	int			res;
 	const char	*s;
+	int			overflow;
 
 	res = 0;
 	s = str;
@@ -34,13 +35,14 @@ int	ft_atoi(const char *str)
 		s++;
 	while (*s && *s >= '0' && *s <= '9')
 	{
-		if ((unsigned long)res > (SIZE_MAX / 10))
+		overflow = res;
+		res = res * 10 + (*s - '0');
+		if (overflow > res)
 		{
 			if (*str == '-')
 				return (0);
 			return (-1);
 		}
-		res = res * 10 + (*s - '0');
 		s++;
 	}
 	if (res != 0 && *str == '-')

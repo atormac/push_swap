@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:36:58 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/22 21:59:29 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/22 22:24:18 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ int is_duplicate_str(char *s, int i, char **argv)
 	}
 	return (1);
 }
+
+int is_overflow(char *s)
+{
+	int	num;
+
+	if (ft_strlen(s) > 5)
+	{
+		num = ft_atoi(s);
+		if (num == -1 || num == 0)
+			return (1);
+	}
+	return (0);
+}
 #include <stdio.h>
 int	args_validate(int argc, char **argv)
 {
@@ -47,6 +60,8 @@ int	args_validate(int argc, char **argv)
 		if (!is_digit_str(argv[i]))
 			return (0);
 		if (!is_duplicate_str(argv[i], i - 1, argv))
+			return (0);
+		if (is_overflow(argv[i]))
 			return (0);
 		i++;
 	}
