@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/22 21:16:52 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/22 21:38:40 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int main(int argc, char **argv)
 {
 	(void)argv;
-	if (argc <= 1)
+	if (argc <= 1 || !args_validate(argc, argv))
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (0);
