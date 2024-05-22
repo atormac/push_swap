@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:36:58 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/22 22:24:18 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/22 22:28:34 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int is_digit_str(char *s)
 {
+	if (*s == '-' && *(s + 1))
+		s++;
 	while (*s)
 	{
 		if (!ft_isdigit(*s))
@@ -49,7 +51,7 @@ int is_overflow(char *s)
 	}
 	return (0);
 }
-#include <stdio.h>
+
 int	args_validate(int argc, char **argv)
 {
 	int	i;
