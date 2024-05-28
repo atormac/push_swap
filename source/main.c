@@ -6,12 +6,18 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 18:08:59 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/28 18:38:03 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	sort_stack(t_stack *a_stack, t_stack *b_stack, int n)
+{
+	(void)b_stack;
+	if (n == 2)
+		move_sa(a_stack);
+}
 int push_swap(int *a, int *b, int n)
 {
 	struct t_stack	a_stack;
@@ -24,10 +30,7 @@ int push_swap(int *a, int *b, int n)
 	b_stack.arr = b;
 	b_stack.count_element = 0;
 	stack_print(&a_stack, &b_stack, n);
-	move_sa(&a_stack);
-	if (array_is_sorted(a, n))
-		ft_putstr_fd("sorted!\n", 1);
-	move_pb(&a_stack, &b_stack);
+	sort_stack(&a_stack, &b_stack, n);
 	stack_print(&a_stack, &b_stack, n);
 	return (1);
 }
