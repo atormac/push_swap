@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 16:38:24 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:40:23 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	push_swap(a, b, argc - 1);
+	free(a);
+	free(b);
 	return (0);
 }
