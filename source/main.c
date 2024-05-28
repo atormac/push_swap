@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/22 22:09:01 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:40:07 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int main(int argc, char **argv)
 {
+	int	*arr;
 	if (argc <= 1)
 		return (0);
 	if (!args_validate(argc, argv))
@@ -21,6 +22,13 @@ int main(int argc, char **argv)
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
-	ft_putstr_fd("push_swap\n", 1);
+	arr = array_alloc(argc, argv);
+	if (!arr)
+		return (0);
+	array_print(arr, argc - 1);
+	if (array_is_sorted(arr, argc - 1))
+		ft_putstr_fd("sorted!\n", 1);
+	else
+		ft_putstr_fd("not sorted!\n", 1);
 	return (0);
 }
