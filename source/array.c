@@ -38,21 +38,6 @@ void	array_print(int *arr, int n)
 	}
 }
 
-void	array_stacks_print(int *a, int *b, int n)
-{
-	int i;
-
-	i = 0;
-	while (i < n)
-	{
-		ft_putstr_fd("a:\t", 1);
-		ft_putnbr_fd(a[i], 1);
-		ft_putstr_fd("\tb:\t", 1);
-		ft_putnbr_fd(b[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
-	}
-}
 
 int	array_is_sorted(int *arr, int n)
 {

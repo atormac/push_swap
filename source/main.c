@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 16:40:23 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/28 17:07:44 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 int push_swap(int *a, int *b, int n)
 {
+	struct t_stack	a_stack;
+	struct t_stack	b_stack;
+
 	if (array_is_sorted(a, n))
 		return (1);
-	array_stacks_print(a, b, n);
+	a_stack.arr = a;
+	a_stack.count_element = n;
+	b_stack.arr = b;
+	b_stack.count_element = 0;
+	stack_print(&a_stack, &b_stack, n);
 	return (1);
 }
 

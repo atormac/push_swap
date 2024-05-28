@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 17:06:52 by atorma           ###   ########.fr       */
+/*   Created: 2024/05/28 17:01:51 by atorma            #+#    #+#             */
+/*   Updated: 2024/05/28 17:07:13 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "push_swap.h"
 
-#ifndef PUSH_SWAP_H
-# define PUSH_WAP_H
-
-typedef struct t_stack
+void	stack_print(t_stack *a_stack, t_stack *b_stack, int n)
 {
-	long count_element;
-	int *arr;
-}	t_stack;
+	int i;
+	int	*a;
+	int	*b;
 
-int		args_validate(int argc, char **argv);
-int		*array_alloc(int n);
-void	array_fill(int *arr, int n, char **argv);
-void	array_print(int *arr, int n);
-int		array_is_sorted(int *arr, int n);
-void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
-
-#endif
+	i = 0;
+	a = a_stack->arr;
+	b = b_stack->arr;
+	ft_putstr_fd("--- stacks ---\n", 1);
+	while (i < n)
+	{
+		ft_putstr_fd("a:\t", 1);
+		ft_putnbr_fd(a[i], 1);
+		ft_putstr_fd("\tb:\t", 1);
+		ft_putnbr_fd(b[i], 1);
+		ft_putstr_fd("\n", 1);
+		i++;
+	}
+}
