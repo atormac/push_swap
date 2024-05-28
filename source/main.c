@@ -6,30 +6,34 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 16:29:51 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:38:24 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int push_swap(int *a, int *b)
+int push_swap(int *a, int *b, int n)
 {
-	(void)a;
-	(void)b;
+	if (array_is_sorted(a, n))
+		return (1);
+	array_stacks_print(a, b, n);
 	return (1);
 }
 
 int	push_swap_init(int argc, char **argv, int **a, int **b)
 {
-	*a = array_alloc(argc - 1);
-	*b = array_alloc(argc - 1);
+	int	n;
+
+	n = argc - 1;
+	*a = array_alloc(n);
+	*b = array_alloc(n);
 	if (!*a || !*b)
 	{
 		free(*a);
 		free(*b);
 		return (0);
 	}
-	array_fill(*a, argc - 1, argv);
+	array_fill(*a, n, argv);
 	return (1);
 }
 
@@ -50,8 +54,6 @@ int main(int argc, char **argv)
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
-	array_stacks_print(a, b, argc - 1);
-	if (!array_is_sorted(a, argc - 1))
-		push_swap(a, b);
+	push_swap(a, b, argc - 1);
 	return (0);
 }
