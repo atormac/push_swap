@@ -1,22 +1,28 @@
 #include "push_swap.h"
 
-int *array_alloc(int argc, char **argv)
+int *array_alloc(int n)
 {
 	int	*ret;
 	int	i;
-	int	n;
 
 	i = 0;
-	n = argc - 1;
 	ret = malloc(sizeof(int) * n);
 	if (!ret)
 		return (NULL);
+	ft_bzero(ret, sizeof(int) * n);
+	return (ret);
+}
+
+void	array_fill(int *arr, int n, char **argv)
+{
+	int	i;
+
+	i = 0;
 	while (i < n)
 	{
-		ret[i] = ft_atoi(argv[i + 1]);
+		arr[i] = ft_atoi(argv[i + 1]);
 		i++;
 	}
-	return (ret);
 }
 
 void	array_print(int *arr, int n)
@@ -27,6 +33,22 @@ void	array_print(int *arr, int n)
 	while (i < n)
 	{
 		ft_putnbr_fd(arr[i], 1);
+		ft_putstr_fd("\n", 1);
+		i++;
+	}
+}
+
+void	array_stacks_print(int *a, int *b, int n)
+{
+	int i;
+
+	i = 0;
+	while (i < n)
+	{
+		ft_putstr_fd("a:\t", 1);
+		ft_putnbr_fd(a[i], 1);
+		ft_putstr_fd("\tb:\t", 1);
+		ft_putnbr_fd(b[i], 1);
 		ft_putstr_fd("\n", 1);
 		i++;
 	}
