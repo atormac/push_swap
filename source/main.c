@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 17:07:44 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/28 17:34:16 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int push_swap(int *a, int *b, int n)
 	a_stack.count_element = n;
 	b_stack.arr = b;
 	b_stack.count_element = 0;
+	stack_print(&a_stack, &b_stack, n);
+	move_sa(&a_stack);
 	stack_print(&a_stack, &b_stack, n);
 	return (1);
 }
