@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:16 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 18:00:36 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/28 18:11:22 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ void	move_pa(t_stack *a_stack, t_stack *b_stack)
 {
 	if (b_stack->count_element == 0)
 		return ;
-	a_stack[0] = b_stack[0];
+	a_stack->arr[0] = a_stack->arr[0];
 }
 
 void	move_pb(t_stack *a_stack, t_stack *b_stack)
 {
 	if (a_stack->count_element == 0)
 		return ;
-	b_stack[0] = a_stack[0];
+	b_stack->arr[0] = a_stack->arr[0];
+	b_stack->count_element++;
 }
