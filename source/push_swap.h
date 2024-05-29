@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 18:00:51 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:04:02 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,22 @@
 
 typedef struct t_stack
 {
-	long count_element;
+	long count;
 	int *arr;
 }	t_stack;
 
 int		args_validate(int argc, char **argv);
 int		*array_alloc(int n);
 void	array_fill(int *arr, int n, char **argv);
+void	array_normalize(int *arr, int n);
 void	array_print(int *arr, int n);
 int		array_is_sorted(int *arr, int n);
 void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
-void	move_sa(t_stack *a_stack);
-void	move_sb(t_stack *stack);
-void	move_ss(t_stack *a_stack, t_stack *b_stack);
-void	move_pa(t_stack *a_stack, t_stack *b_stack);
-void	move_pb(t_stack *a_stack, t_stack *b_stack);
+int		find_top(t_stack *stack, int n);
+void	move_sa(t_stack *a);
+void	move_sb(t_stack *b);
+void	move_ss(t_stack *a, t_stack *b);
+void	move_pa(t_stack *a, t_stack *b);
+void	move_pb(t_stack *a, t_stack *b, int n);
 
 #endif

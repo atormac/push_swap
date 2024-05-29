@@ -6,47 +6,66 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:16 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 19:19:22 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:06:04 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	move_sa(t_stack *stack)
+void	move_sa(t_stack *a)
 {
 	int	tmp;
-	if (stack->count_element <= 1)
+	if (a->count <= 1)
 		return ;
-	tmp = stack->arr[1];
-	stack->arr[1] = stack->arr[0];
-	stack->arr[0] = tmp;
+	tmp = a->arr[1];
+	a->arr[1] = a->arr[0];
+	a->arr[0] = tmp;
 
 }
 
-void	move_sb(t_stack *stack)
+void	move_sb(t_stack *b)
 {
-	move_sa(stack);
+	move_sa(b);
 }
 
-void	move_ss(t_stack *a_stack, t_stack *b_stack)
+void	move_ss(t_stack *a, t_stack *b)
 {
-	move_sa(a_stack);
-	move_sb(b_stack);
+	move_sa(a);
+	move_sb(b);
 }
 
-void	move_pa(t_stack *a_stack, t_stack *b_stack)
+void	move_pa(t_stack *a, t_stack *b)
 {
-	if (b_stack->count_element == 0)
+	if (b->count == 0)
 		return ;
-	a_stack->arr[0] = b_stack->arr[0];
-	b_stack->count_element--;
+	a->arr[0] = b->arr[0];
+	b->count--;
 }
 
-void	move_pb(t_stack *a_stack, t_stack *b_stack)
+int find_top(t_stack *stack, int n)
 {
-	int	index;
-	if (a_stack->count_element == 0)
+	int i;
+	int *arr;
+
+	i = 0;
+	arr = stack->arr;
+	while (i < n)
+	{
+		if (arr[i] != -1)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+void	move_pb(t_stack *a, t_stack *b, int n)
+{
+	int i;
+
+	if (a->count == 0)
 		return ;
-	b_stack->arr[0] = a_stack->arr[0];
-	b_stack->count_element++;
+	i = find_top(a, n);
+	b->arr[i] = a->arr[i];
+	a->arr[0] = -1;
+	b->count++;
 }

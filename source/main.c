@@ -6,18 +6,25 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 19:18:44 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:04:39 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_stack(t_stack *a_stack, t_stack *b_stack, int n)
+void	sort_stack(t_stack *a, t_stack *b, int n)
 {
-	(void)b_stack;
+	(void)b;
 	if (n == 2)
-		move_sa(a_stack);
+		move_sa(a);
+	else
+	{
+		move_pb(a, b, n);
+		move_pb(a, b, n);
+	}
+	stack_print(a, b, n);
 }
+
 int push_swap(int *a, int *b, int n)
 {
 	struct t_stack	a_stack;
@@ -26,15 +33,12 @@ int push_swap(int *a, int *b, int n)
 	if (array_is_sorted(a, n))
 		return (1);
 	a_stack.arr = a;
-	a_stack.count_element = n;
+	a_stack.count = n;
 	b_stack.arr = b;
-	b_stack.count_element = 0;
+	b_stack.count = 0;
+	array_normalize(a, n);
 	stack_print(&a_stack, &b_stack, n);
-	//sort_stack(&a_stack, &b_stack, n);
-	move_pb(&a_stack, &b_stack);
-	stack_print(&a_stack, &b_stack, n);
-	move_pb(&a_stack, &b_stack);
-	stack_print(&a_stack, &b_stack, n);
+	sort_stack(&a_stack, &b_stack, n);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:01:51 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/28 19:09:56 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:01:01 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	stack_print(t_stack *a_stack, t_stack *b_stack, int n)
 	ft_putstr_fd("--- stacks ---\n", 1);
 	while (i < n)
 	{
-		if (i < a_stack->count_element)
+		if (a[i] != -1)
 		{
 			ft_putstr_fd("a:\t", 1);
 			ft_putnbr_fd(a[i], 1);
 		}
-		if (i < b_stack->count_element)
+		if (b[i] != -1)
 		{
 			ft_putstr_fd("\tb:\t", 1);
 			ft_putnbr_fd(b[i], 1);

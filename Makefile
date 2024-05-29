@@ -6,7 +6,7 @@
 #    By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 21:09:57 by atorma            #+#    #+#              #
-#    Updated: 2024/05/28 17:33:30 by atorma           ###   ########.fr        #
+#    Updated: 2024/05/29 18:31:35 by atorma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ LIBDIR = ./libft
 
 all: $(NAME)
 
+debug: CFLAGS += -g -fsanitize=address
+debug: clean_obj all
+
 $(NAME): $(OBJECTS)
 	$(MAKE) -C $(LIBDIR)
 	$(CC) -o $@ $(CFLAGS) $^ ./libft/libft.a
@@ -31,9 +34,12 @@ clean:
 	$(MAKE) -C $(LIBDIR) $@
 	rm -f $(OBJECTS)
 
+clean_obj:
+	rm -f $(OBJECTS)
+
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: debug all clean clean_obj fclean re
