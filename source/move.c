@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:16 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/29 20:35:13 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:42:15 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	move_pa(t_stack *a, t_stack *b, int n)
 
 	if (b->count == 0)
 		return ;
+	if (a->arr[0] != -1)
 	ft_memmove(a->arr + 1, a->arr, a->count * sizeof(int));
 	i = find_top(b, n);
-	i2 = find_top(a, n);
-	a->arr[i2] = b->arr[i];
+	a->arr[0] = b->arr[i];
 	b->arr[i] = -1;
 	a->count++;
 	b->count--;

@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/29 20:32:13 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:39:34 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	sort_stack(t_stack *a, t_stack *b, int n)
 		move_pb(a, b, n);
 		stack_print(a, b, n);
 		move_pa(a, b, n);
+		stack_print(a, b, n);
 		move_pa(a, b, n);
 		stack_print(a, b, n);
 	}
