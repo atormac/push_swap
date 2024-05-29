@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/29 20:04:02 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:29:14 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		find_top(t_stack *stack, int n);
 void	move_sa(t_stack *a);
 void	move_sb(t_stack *b);
 void	move_ss(t_stack *a, t_stack *b);
-void	move_pa(t_stack *a, t_stack *b);
+void	move_pa(t_stack *a, t_stack *b, int n);
 void	move_pb(t_stack *a, t_stack *b, int n);
 
 #endif

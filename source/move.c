@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:16 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/29 20:06:04 by atorma           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:35:13 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ void	move_ss(t_stack *a, t_stack *b)
 	move_sb(b);
 }
 
-void	move_pa(t_stack *a, t_stack *b)
-{
-	if (b->count == 0)
-		return ;
-	a->arr[0] = b->arr[0];
-	b->count--;
-}
 
 int find_top(t_stack *stack, int n)
 {
@@ -58,14 +51,31 @@ int find_top(t_stack *stack, int n)
 	return (-1);
 }
 
+void	move_pa(t_stack *a, t_stack *b, int n)
+{
+	int i;
+
+	if (b->count == 0)
+		return ;
+	ft_memmove(a->arr + 1, a->arr, a->count * sizeof(int));
+	i = find_top(b, n);
+	i2 = find_top(a, n);
+	a->arr[i2] = b->arr[i];
+	b->arr[i] = -1;
+	a->count++;
+	b->count--;
+}
+
 void	move_pb(t_stack *a, t_stack *b, int n)
 {
 	int i;
 
 	if (a->count == 0)
 		return ;
+	ft_memmove(b->arr + 1, b->arr, b->count * sizeof(int));
 	i = find_top(a, n);
-	b->arr[i] = a->arr[i];
-	a->arr[0] = -1;
+	b->arr[0] = a->arr[i];
+	a->arr[i] = -1;
 	b->count++;
+	a->count--;
 }
