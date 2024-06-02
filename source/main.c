@@ -14,15 +14,15 @@
 
 void	sort_stack(t_stack *a, t_stack *b, int n)
 {
-	(void)b;
 	if (n == 2)
-		move_sa(a);
+	{
+		move_sa(a, n);
+		stack_print(a, b, n);
+	}
 	else
 	{
 		move_pb(a, b, n);
 		move_pb(a, b, n);
-		stack_print(a, b, n);
-		move_pa(a, b, n);
 		stack_print(a, b, n);
 		move_pa(a, b, n);
 		stack_print(a, b, n);

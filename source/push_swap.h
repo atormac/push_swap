@@ -29,9 +29,9 @@ void	array_print(int *arr, int n);
 int		array_is_sorted(int *arr, int n);
 void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
 int		find_top(t_stack *stack, int n);
-void	move_sa(t_stack *a);
-void	move_sb(t_stack *b);
-void	move_ss(t_stack *a, t_stack *b);
+void	move_sa(t_stack *a, int n);
+void	move_sb(t_stack *b, int n);
+void	move_ss(t_stack *a, t_stack *b, int n);
 void	move_pa(t_stack *a, t_stack *b, int n);
 void	move_pb(t_stack *a, t_stack *b, int n);
 

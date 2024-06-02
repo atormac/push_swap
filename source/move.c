@@ -12,26 +12,29 @@
 
 #include "push_swap.h"
 
-void	move_sa(t_stack *a)
+void	move_sa(t_stack *a, int n)
 {
+	int	top;
 	int	tmp;
 	if (a->count <= 1)
 		return ;
-	tmp = a->arr[1];
-	a->arr[1] = a->arr[0];
-	a->arr[0] = tmp;
+
+	top = n - a->count;
+	tmp = a->arr[top + 1];
+	a->arr[top + 1] = a->arr[top];
+	a->arr[top] = tmp;
 
 }
 
-void	move_sb(t_stack *b)
+void	move_sb(t_stack *b, int n)
 {
-	move_sa(b);
+	move_sa(b, n);
 }
 
-void	move_ss(t_stack *a, t_stack *b)
+void	move_ss(t_stack *a, t_stack *b, int n)
 {
-	move_sa(a);
-	move_sb(b);
+	move_sa(a, n);
+	move_sb(b, n);
 }
 
 
@@ -53,29 +56,30 @@ int find_top(t_stack *stack, int n)
 
 void	move_pa(t_stack *a, t_stack *b, int n)
 {
-	int i;
+	int	b_top;
+	int	a_top;
 
 	if (b->count == 0)
 		return ;
-	if (a->arr[0] != -1)
-	ft_memmove(a->arr + 1, a->arr, a->count * sizeof(int));
-	i = find_top(b, n);
-	a->arr[0] = b->arr[i];
-	b->arr[i] = -1;
+	b_top = n - b->count;
+	a_top = n - a->count - 1;
+	a->arr[a_top] = b->arr[b_top];
+	b->arr[b_top] = -1;
 	a->count++;
 	b->count--;
 }
 
 void	move_pb(t_stack *a, t_stack *b, int n)
 {
-	int i;
+	int	b_top;
+	int	a_top;
 
 	if (a->count == 0)
 		return ;
-	ft_memmove(b->arr + 1, b->arr, b->count * sizeof(int));
-	i = find_top(a, n);
-	b->arr[0] = a->arr[i];
-	a->arr[i] = -1;
+	b_top = n - b->count - 1;
+	a_top = n - a->count;
+	b->arr[b_top] = a->arr[a_top];
+	a->arr[a_top] = -1;
 	b->count++;
 	a->count--;
 }

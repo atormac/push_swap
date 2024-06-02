@@ -3,9 +3,7 @@
 int *array_alloc(int n)
 {
 	int	*ret;
-	int	i;
 
-	i = 0;
 	ret = malloc(sizeof(int) * n);
 	if (!ret)
 		return (NULL);
