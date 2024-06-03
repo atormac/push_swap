@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:16 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 15:18:29 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 18:58:46 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,7 @@ void	move_ss(t_stack *a, t_stack *b, int n)
 	move_sb(b, n);
 }
 
-
-int find_top(t_stack *stack, int n)
-{
-	int i;
-	int *arr;
-
-	i = 0;
-	arr = stack->arr;
-	while (i < n)
-	{
-		if (arr[i] != -1)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-void	move_pa(t_stack *a, t_stack *b, int n)
+void	move_pa(t_record *r, t_stack *a, t_stack *b, int n)
 {
 	int	b_top;
 	int	a_top;
@@ -67,9 +50,10 @@ void	move_pa(t_stack *a, t_stack *b, int n)
 	b->arr[b_top] = -1;
 	a->count++;
 	b->count--;
+	record_move(r, MV_PA);
 }
 
-void	move_pb(t_stack *a, t_stack *b, int n)
+void	move_pb(t_record *r, t_stack *a, t_stack *b, int n)
 {
 	int	b_top;
 	int	a_top;
@@ -82,9 +66,10 @@ void	move_pb(t_stack *a, t_stack *b, int n)
 	a->arr[a_top] = -1;
 	b->count++;
 	a->count--;
+	record_move(r, MV_PB);
 }
 
-void	move_rotate(t_stack *s, int n)
+void	move_rotate(t_record *r, t_stack *s, int n)
 {
 	int	top;
 	int	last;
@@ -97,9 +82,10 @@ void	move_rotate(t_stack *s, int n)
 	tmp = s->arr[top];
 	ft_memmove(s->arr + top, s->arr + top + 1, (s->count - 1) * sizeof(int));
 	s->arr[last] = tmp;
+	record_move(r, MV_RA);
 }
 
-void	move_rev_rotate(t_stack *s, int n)
+void	move_rev_rotate(t_record *r, t_stack *s, int n)
 {
 	int	top;
 	int	last;
@@ -112,4 +98,5 @@ void	move_rev_rotate(t_stack *s, int n)
 	tmp = s->arr[last];
 	ft_memmove(s->arr + top + 1, s->arr + top, (s->count - 1) * sizeof(int));
 	s->arr[top] = tmp;
+	record_move(r, MV_RRA);
 }

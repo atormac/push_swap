@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 18:11:43 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 19:01:11 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_distance_top(int *arr, int n, int val)
 	return (-1);
 }
 
-void	sort_insertion_sort(t_stack *a, t_stack *b, int n)
+void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
 {
 	int	move_count = 0;
 	int	num = 0;
@@ -43,41 +43,45 @@ void	sort_insertion_sort(t_stack *a, t_stack *b, int n)
 		while (current != num)
 		{
 			if (rotate)
-				move_rotate(a, n);
+				move_rotate(r, a, n);
 			else
-				move_rev_rotate(a, n);
+				move_rev_rotate(r, a, n);
 			move_count++;
 			current = a->arr[n - a->count];
 		}
-		move_pb(a, b, n);
+		move_pb(r, a, b, n);
 		move_count++;
 		num++;
 	}
 	while (b->count > 0)
 	{
-		move_pa(a, b, n);
+		move_pa(r, a, b, n);
 		move_count++;
 	}
-	printf("move_count: %d\n", move_count);
 }
 
-void	sort_stack(t_stack *a, t_stack *b, int n)
+void	sort_small(t_record *r, t_stack *a, t_stack *b, int n)
 {
 	if (n == 2)
-	{
 		move_sa(a, n);
-		stack_print(a, b, n);
-	}
+	(void)b;
+	(void)r;
+}
+
+void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
+{
+	if (n == 2)
+		sort_small(r, a, b, n);
 	else
-	{
-		sort_insertion_sort(a, b, n);
-	}
+		sort_insertion_sort(r, a, b, n);
+	printf("move_count: %d\n", r->move_count);
 }
 
 int push_swap(int *a, int *b, int n)
 {
 	struct t_stack	a_stack;
 	struct t_stack	b_stack;
+	struct t_record r;
 
 	if (array_is_sorted(a, n))
 		return (1);
@@ -85,10 +89,11 @@ int push_swap(int *a, int *b, int n)
 	a_stack.count = n;
 	b_stack.arr = b;
 	b_stack.count = 0;
+	r.move_count = 0;
 	array_normalize(a, n);
 	stack_print(&a_stack, &b_stack, n);
 	printf("sorting...\n");
-	sort_stack(&a_stack, &b_stack, n);
+	sort_stack(&r, &a_stack, &b_stack, n);
 	printf("finished...\n");
 	stack_print(&a_stack, &b_stack, n);
 	return (1);
