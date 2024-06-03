@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/29 20:29:14 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 13:55:51 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ void	move_sb(t_stack *b, int n);
 void	move_ss(t_stack *a, t_stack *b, int n);
 void	move_pa(t_stack *a, t_stack *b, int n);
 void	move_pb(t_stack *a, t_stack *b, int n);
+void	move_rotate(t_stack *s, int n);
+void	move_rev_rotate(t_stack *s, int n);
 
 #endif
