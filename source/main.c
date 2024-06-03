@@ -6,12 +6,60 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 15:32:31 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 18:11:43 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
+
+int	get_distance_top(int *arr, int n, int val)
+{
+	int i = 0;
+
+	while (i < n)
+	{
+		if (arr[i] == val)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+void	sort_insertion_sort(t_stack *a, t_stack *b, int n)
+{
+	int	move_count = 0;
+	int	num = 0;
+	int	rotate;
+
+	while (a->count > 1)
+	{
+		rotate = 1;
+		int a_top = n - a->count;
+		int	current = a->arr[a_top];
+		int	dist = get_distance_top(a->arr + a_top, a->count, num);
+		if (dist > a->count / 2)
+			rotate = 0;
+		while (current != num)
+		{
+			if (rotate)
+				move_rotate(a, n);
+			else
+				move_rev_rotate(a, n);
+			move_count++;
+			current = a->arr[n - a->count];
+		}
+		move_pb(a, b, n);
+		move_count++;
+		num++;
+	}
+	while (b->count > 0)
+	{
+		move_pa(a, b, n);
+		move_count++;
+	}
+	printf("move_count: %d\n", move_count);
+}
 
 void	sort_stack(t_stack *a, t_stack *b, int n)
 {
@@ -22,24 +70,7 @@ void	sort_stack(t_stack *a, t_stack *b, int n)
 	}
 	else
 	{
-		int	num = 0;
-		while (a->count > 0)
-		{
-			int a_top = n - a->count;
-		//	int	b_top = n - b->count;
-			int	current = a->arr[a_top];
-			while (current != num)
-			{
-				move_rotate(a, n);
-				stack_print(a, b, n);
-				current = a->arr[n - a->count];
-			}
-			move_pb(a, b, n);
-			num++;
-			stack_print(a, b, n);
-		}
-		while (b->count > 0)
-			move_pa(a, b, n);
+		sort_insertion_sort(a, b, n);
 	}
 }
 

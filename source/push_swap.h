@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 13:55:51 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 16:48:37 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef struct t_stack
 	long count;
 	int *arr;
 }	t_stack;
+
+typedef struct t_record
+{
+	int		count;
+	char	*str;
+}	t_record;
 
 int		args_validate(int argc, char **argv);
 int		*array_alloc(int n);
