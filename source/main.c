@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:36:21 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 19:40:06 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
 		sort_insertion_sort(r, a, b, n);
 	printf("move_count: %d\n", r->move_count);
 	ft_putstr_fd(r->str, 1);
+	free(r->str);
 }
 
 int push_swap(int *a, int *b, int n)
@@ -88,7 +89,6 @@ int push_swap(int *a, int *b, int n)
 	r.str = NULL;
 	array_normalize(a, n);
 	stack_print(&a_stack, &b_stack, n);
-	printf("sorting...\n");
 	sort_stack(&r, &a_stack, &b_stack, n);
 	printf("\nfinished...\n");
 	stack_print(&a_stack, &b_stack, n);
