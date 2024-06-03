@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:40:06 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 19:48:47 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
 void	sort_small(t_record *r, t_stack *a, t_stack *b, int n)
 {
 	if (n == 2)
-		move_sa(a, n);
+		move_sa(r, a, n);
 	(void)b;
 	(void)r;
 }

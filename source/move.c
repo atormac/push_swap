@@ -6,13 +6,13 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:16 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:27:14 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 19:47:38 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	move_sa(t_stack *a, int n)
+void	move_sa(t_record *r, t_stack *a, int n)
 {
 	int	top;
 	int	tmp;
@@ -23,18 +23,12 @@ void	move_sa(t_stack *a, int n)
 	tmp = a->arr[top + 1];
 	a->arr[top + 1] = a->arr[top];
 	a->arr[top] = tmp;
-
+	record_move(r, MV_SA);
 }
 
-void	move_sb(t_stack *b, int n)
+void	move_sb(t_record *r, t_stack *b, int n)
 {
-	move_sa(b, n);
-}
-
-void	move_ss(t_stack *a, t_stack *b, int n)
-{
-	move_sa(a, n);
-	move_sb(b, n);
+	move_sa(r, b, n);
 }
 
 void	move_pa(t_record *r, t_stack *a, t_stack *b, int n)

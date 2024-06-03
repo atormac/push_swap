@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:00:18 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 19:47:51 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ void	array_normalize(int *arr, int n);
 void	array_print(int *arr, int n);
 int		array_is_sorted(int *arr, int n);
 void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
-void	move_sa(t_stack *a, int n);
-void	move_sb(t_stack *b, int n);
-void	move_ss(t_stack *a, t_stack *b, int n);
+void	move_sa(t_record *r, t_stack *a, int n);
+void	move_sb(t_record *r, t_stack *b, int n);
 void	move_pa(t_record *r, t_stack *a, t_stack *b, int n);
 void	move_pb(t_record *r, t_stack *a, t_stack *b, int n);
 void	move_rotate(t_record *r, t_stack *s, int n);
