@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:36:58 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/22 22:28:34 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 21:00:55 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ int is_digit_str(char *s)
 int is_duplicate_str(char *s, int i, char **argv)
 {
 	int	s_len;
+	int	arg_len;
 
-	s_len = ft_strlen(s);
 	while (i >= 1)
 	{
+		s_len = ft_strlen(s);
+		arg_len = ft_strlen(argv[i]);
+		if (arg_len > s_len)
+			s_len = arg_len;
 		if (ft_strncmp(s, argv[i], s_len) == 0)
 			return (0);
 		i--;
