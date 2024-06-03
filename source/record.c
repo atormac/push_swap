@@ -6,12 +6,12 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:41:37 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:36:40 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 21:10:20 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
+
 int	record_append_str(char *str, int move)
 {
 	char	*mv;
