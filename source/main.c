@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:01:11 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 19:02:22 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	get_distance_top(int *arr, int n, int val)
 
 void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
 {
-	int	move_count = 0;
 	int	num = 0;
 	int	rotate;
 
@@ -46,18 +45,13 @@ void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
 				move_rotate(r, a, n);
 			else
 				move_rev_rotate(r, a, n);
-			move_count++;
 			current = a->arr[n - a->count];
 		}
 		move_pb(r, a, b, n);
-		move_count++;
 		num++;
 	}
 	while (b->count > 0)
-	{
 		move_pa(r, a, b, n);
-		move_count++;
-	}
 }
 
 void	sort_small(t_record *r, t_stack *a, t_stack *b, int n)
