@@ -6,11 +6,12 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 13:56:10 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 15:32:31 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 void	sort_stack(t_stack *a, t_stack *b, int n)
 {
@@ -21,14 +22,24 @@ void	sort_stack(t_stack *a, t_stack *b, int n)
 	}
 	else
 	{
-		move_pb(a, b, n);
-		move_pb(a, b, n);
-		stack_print(a, b, n);
-		move_pa(a, b, n);
-		move_pa(a, b, n);
-		stack_print(a, b, n);
-		move_rev_rotate(a, n);
-		stack_print(a, b, n);
+		int	num = 0;
+		while (a->count > 0)
+		{
+			int a_top = n - a->count;
+		//	int	b_top = n - b->count;
+			int	current = a->arr[a_top];
+			while (current != num)
+			{
+				move_rotate(a, n);
+				stack_print(a, b, n);
+				current = a->arr[n - a->count];
+			}
+			move_pb(a, b, n);
+			num++;
+			stack_print(a, b, n);
+		}
+		while (b->count > 0)
+			move_pa(a, b, n);
 	}
 }
 
@@ -45,7 +56,10 @@ int push_swap(int *a, int *b, int n)
 	b_stack.count = 0;
 	array_normalize(a, n);
 	stack_print(&a_stack, &b_stack, n);
+	printf("sorting...\n");
 	sort_stack(&a_stack, &b_stack, n);
+	printf("finished...\n");
+	stack_print(&a_stack, &b_stack, n);
 	return (1);
 }
 
