@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:48:47 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/03 20:48:16 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,45 @@ void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
 		move_pa(r, a, b, n);
 }
 
-void	sort_small(t_record *r, t_stack *a, t_stack *b, int n)
+void	sort_small(t_record *r, t_stack *a, int n)
 {
-	if (n == 2)
+	int	greatest;
+	int	smallest;
+
+	greatest = get_distance_top(a->arr, a->count, n - 1);
+	smallest = get_distance_top(a->arr, a->count, 0);
+	if (greatest == 2)
 		move_sa(r, a, n);
-	(void)b;
-	(void)r;
+	else if (greatest == 0 && smallest == 2)
+	{
+		move_sa(r, a, n);
+		move_rev_rotate(r, a, n);
+	}
+	else if (greatest == 1 && smallest == 0)
+	{
+		move_sa(r, a, n);
+		move_rotate(r, a, n);
+	}
+	else if (greatest == 0 && smallest == 1)
+		move_rotate(r, a, n);
+	else if (greatest == 1 && smallest == 2)
+		move_rev_rotate(r, a, n);
 }
 
 void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
 {
 	if (n == 2)
-		sort_small(r, a, b, n);
+		move_sa(r, a, n);
+	else if (n == 3)
+		sort_small(r, a, n);
 	else
 		sort_insertion_sort(r, a, b, n);
-	printf("move_count: %d\n", r->move_count);
-	ft_putstr_fd(r->str, 1);
-	free(r->str);
+	if (r->str)
+	{
+		printf("move_count: %d\n", r->move_count);
+		ft_putstr_fd(r->str, 1);
+		free(r->str);
+	}
 }
 
 int push_swap(int *a, int *b, int n)
