@@ -54,6 +54,64 @@ void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
 		move_pa(r, a, b, n);
 }
 
+/*
+void	push_greatest(t_record *r, t_stack *a, t_stack *b, int n)
+{
+
+}
+*/
+
+int	get_cheapest_top(int *arr, int n, int low, int high)
+{
+	int i = 0;
+
+	high += low;
+	while (i < n)
+	{
+		if (arr[i] >= low && arr[i] <= high)
+			break;
+		i++;
+	}
+	printf("i: %d, low %d, high: %d\n", i, low, high);
+	return (i);
+}
+
+void	push_cheapest(t_record *r, t_stack *a, t_stack *b, int n, int low, int high)
+{
+}
+
+void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
+{
+	int	chunk_size = n / 2;
+	int	chunk_count = n / chunk_size;
+	int	num_pushed = 0;
+
+	chunk_size += n % chunk_size;
+	stack_print(a, b, n);
+	while (chunk_count > 0)
+	{
+		printf("chunk_size: %d, count: %d\n", chunk_size, chunk_count);
+		while (chunk_size > 0)
+		{
+			push_cheapest(r, a, b, n, 
+			move_pb(r, a, b, n);
+			num_pushed++;
+			chunk_size--;
+		}
+		//move_pb(r, a, b, n);	
+		chunk_size = n / 2;
+		chunk_count--;
+	}
+	(void)r;
+	stack_print(a, b, n);
+	/*
+	while (b->count > 0)
+	{
+		push_greatest(r, a, b, n);
+	}
+	*/
+}
+
 void	sort_small(t_record *r, t_stack *a, int n)
 {
 	int	greatest;
@@ -86,13 +144,15 @@ void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
 	else if (n == 3)
 		sort_small(r, a, n);
 	else
-		sort_insertion_sort(r, a, b, n);
-	if (r->str)
 	{
-		printf("move_count: %d\n", r->move_count);
-		ft_putstr_fd(r->str, 1);
-		free(r->str);
+		push_in_chunks(r, a, b, n);
+		//sort_insertion_sort(r, a, b, n);
 	}
+	if (!r->str)
+		return ;
+	//ft_putstr_fd(r->str, 1);
+	free(r->str);
+	printf("move_count: %d\n", r->move_count);
 }
 
 int push_swap(int *a, int *b, int n)
@@ -110,10 +170,13 @@ int push_swap(int *a, int *b, int n)
 	r.move_count = 0;
 	r.str = NULL;
 	array_normalize(a, n);
-	stack_print(&a_stack, &b_stack, n);
+	//stack_print(&a_stack, &b_stack, n);
 	sort_stack(&r, &a_stack, &b_stack, n);
-	printf("\nfinished...\n");
-	stack_print(&a_stack, &b_stack, n);
+	if (!array_is_sorted(a, n))
+	{
+		stack_print(&a_stack, &b_stack, n);
+		return (1);
+	}
 	return (1);
 }
 
