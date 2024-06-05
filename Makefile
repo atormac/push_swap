@@ -6,7 +6,7 @@
 #    By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 21:09:57 by atorma            #+#    #+#              #
-#    Updated: 2024/06/03 18:48:34 by atorma           ###   ########.fr        #
+#    Updated: 2024/06/05 20:17:48 by atorma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SOURCE_DIR = source
-SOURCES = main.c args.c array.c stack.c move.c record.c
+SOURCES = main.c args.c array.c stack.c move.c record.c sort.c
 OBJECTS = $(addprefix $(SOURCE_DIR)/,$(SOURCES:.c=.o))
 LIBDIR = ./libft
 

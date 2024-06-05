@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/05 17:29:44 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/05 23:22:09 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
 	int	num = 0;
 	int	rotate;
 
-	while (a->count > 1)
+	while (a->count > 0)
 	{
 		rotate = 1;
 		int a_top = n - a->count;
@@ -54,29 +54,21 @@ void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
 		move_pa(r, a, b, n);
 }
 
-/*
-void	push_greatest(t_record *r, t_stack *a, t_stack *b, int n)
-{
-
-}
-*/
-
-int	get_cheapest_top(t_stack *s, int n, int low, int high)
+int	get_mvcount_top(t_stack *s, int n, int low, int high)
 {
 	int i;
-	int	index;
+	int	move_count;
 
-	index = 0;
+	move_count = 0;
 	i = n - s->count;
 	while (i < s->count)
 	{
 		if (s->arr[i] >= low && s->arr[i] <= high)
 			break;
 		i++;
-		index++;
+		move_count++;
 	}
-	printf("move_count_top: %d, low %d, high: %d\n", index, low, high);
-	return (index);
+	return (move_count);
 }
 
 int	get_mvcount_bottom(t_stack *s, int n, int low, int high)
@@ -93,21 +85,19 @@ int	get_mvcount_bottom(t_stack *s, int n, int low, int high)
 		i--;
 		move_count++;
 	}
-	printf("move_count_bottom: %d, low %d, high: %d\n", move_count, low, high);
 	return (move_count);
 }
+
+#define CHUNK_COUNT 5
 
 void	push_cheapest(t_record *r, t_stack *a, t_stack *b, int n, int low, int high)
 {
 	int	mv_count_top;
 	int	mv_count_bottom;
 
-	high += low;
-	mv_count_top = get_cheapest_top(a, n, low, high);
+	mv_count_top = get_mvcount_top(a, n, low, high);
 	mv_count_bottom = get_mvcount_bottom(a, n, low, high);
 	int	top = a->arr[n - a->count];
-
-	printf("top: %d\n", top);
 
 	while (1)
 	{
@@ -122,7 +112,10 @@ void	push_cheapest(t_record *r, t_stack *a, t_stack *b, int n, int low, int high
 	move_pb(r, a, b, n);
 }
 
-#define CHUNK_COUNT 4
+void	push_back(t_record *r, t_stack *a, t_stack *b, int n)
+{
+
+}
 
 void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 {
@@ -134,11 +127,16 @@ void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 	stack_print(a, b, n);
 	while (chunk_count > 0)
 	{
-		printf("chunk_size: %d, count: %d\n", chunk_size, chunk_count);
 		int	i = chunk_size;
 		while (i > 0)
 		{
-			push_cheapest(r, a, b, n, num_pushed, chunk_size - 1);
+			int high = num_pushed + chunk_size - 1;
+			push_cheapest(r, a, b, n, num_pushed, high);
+			if (b->arr[n - b->count] < (num_pushed + (chunk_size / 2)))
+			{
+				printf("rotating: %d, median: %d\n", b->arr[n - b->count], (num_pushed + (chunk_size / 2)));
+				move_rotate(r, b, n);
+			}
 			i--;
 		}
 		num_pushed += chunk_size;
@@ -146,37 +144,19 @@ void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 		chunk_count--;
 	}
 	stack_print(a, b, n);
+	printf("move_count: %d, num_pushed %d\n", r->move_count, num_pushed);
 	while (b->count > 0)
 	{
 		num_pushed--;
+		/*int	second = num_pushed - 2;
+		if (second < 0)
+			second = num_pushed;
+		if (num_pushed == 0)
+			break;
+			*/
 		push_cheapest(r, b, a, n, num_pushed, num_pushed);
 	}
 	stack_print(a, b, n);
-}
-
-void	sort_small(t_record *r, t_stack *a, int n)
-{
-	int	greatest;
-	int	smallest;
-
-	greatest = get_distance_top(a->arr, a->count, n - 1);
-	smallest = get_distance_top(a->arr, a->count, 0);
-	if (greatest == 2)
-		move_sa(r, a, n);
-	else if (greatest == 0 && smallest == 2)
-	{
-		move_sa(r, a, n);
-		move_rev_rotate(r, a, n);
-	}
-	else if (greatest == 1 && smallest == 0)
-	{
-		move_sa(r, a, n);
-		move_rotate(r, a, n);
-	}
-	else if (greatest == 0 && smallest == 1)
-		move_rotate(r, a, n);
-	else if (greatest == 1 && smallest == 2)
-		move_rev_rotate(r, a, n);
 }
 
 void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
@@ -184,9 +164,15 @@ void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
 	if (n == 2)
 		move_sa(r, a, n);
 	else if (n == 3)
-		sort_small(r, a, n);
+		sort_three(r, a, n);
 	else
 	{
+		/*
+		stack_print(a, b, n);
+		sort_turkish(r, a, b, n);
+		printf("\n");
+		stack_print(a, b, n);
+		*/
 		push_in_chunks(r, a, b, n);
 		//sort_insertion_sort(r, a, b, n);
 	}
@@ -214,11 +200,6 @@ int push_swap(int *a, int *b, int n)
 	array_normalize(a, n);
 	//stack_print(&a_stack, &b_stack, n);
 	sort_stack(&r, &a_stack, &b_stack, n);
-	if (!array_is_sorted(a, n))
-	{
-		stack_print(&a_stack, &b_stack, n);
-		return (1);
-	}
 	return (1);
 }
 

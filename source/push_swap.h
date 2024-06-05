@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:47:51 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/05 20:35:46 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,8 @@ void	move_pb(t_record *r, t_stack *a, t_stack *b, int n);
 void	move_rotate(t_record *r, t_stack *s, int n);
 void	move_rev_rotate(t_record *r, t_stack *s, int n);
 int		record_move(t_record *r, int move);
+int		get_distance_top(int *arr, int n, int val);
+void	sort_three(t_record *r, t_stack *s, int n);
+void	sort_turkish(t_record *r, t_stack *a, t_stack *b, int n);
 
 #endif
