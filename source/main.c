@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 20:48:16 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/05 17:29:44 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,72 @@ void	push_greatest(t_record *r, t_stack *a, t_stack *b, int n)
 }
 */
 
-int	get_cheapest_top(int *arr, int n, int low, int high)
+int	get_cheapest_top(t_stack *s, int n, int low, int high)
 {
-	int i = 0;
+	int i;
+	int	index;
 
-	high += low;
-	while (i < n)
+	index = 0;
+	i = n - s->count;
+	while (i < s->count)
 	{
-		if (arr[i] >= low && arr[i] <= high)
+		if (s->arr[i] >= low && s->arr[i] <= high)
 			break;
 		i++;
+		index++;
 	}
-	printf("i: %d, low %d, high: %d\n", i, low, high);
-	return (i);
+	printf("move_count_top: %d, low %d, high: %d\n", index, low, high);
+	return (index);
+}
+
+int	get_mvcount_bottom(t_stack *s, int n, int low, int high)
+{
+	int i;
+	int	move_count;
+
+	move_count = 1;
+	i = n - 1;
+	while (i >= s->count)
+	{
+		if (s->arr[i] >= low && s->arr[i] <= high)
+			break;
+		i--;
+		move_count++;
+	}
+	printf("move_count_bottom: %d, low %d, high: %d\n", move_count, low, high);
+	return (move_count);
 }
 
 void	push_cheapest(t_record *r, t_stack *a, t_stack *b, int n, int low, int high)
 {
+	int	mv_count_top;
+	int	mv_count_bottom;
+
+	high += low;
+	mv_count_top = get_cheapest_top(a, n, low, high);
+	mv_count_bottom = get_mvcount_bottom(a, n, low, high);
+	int	top = a->arr[n - a->count];
+
+	printf("top: %d\n", top);
+
+	while (1)
+	{
+		if (top >= low && top <= high)
+			break;
+		if (mv_count_bottom < mv_count_top)
+			move_rev_rotate(r, a, n);
+		else
+			move_rotate(r, a, n);
+		top = a->arr[n - a->count];
+	}
+	move_pb(r, a, b, n);
 }
+
+#define CHUNK_COUNT 4
 
 void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 {
-	int	chunk_size = n / 2;
+	int	chunk_size = n / CHUNK_COUNT;
 	int	chunk_count = n / chunk_size;
 	int	num_pushed = 0;
 
@@ -91,25 +135,23 @@ void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 	while (chunk_count > 0)
 	{
 		printf("chunk_size: %d, count: %d\n", chunk_size, chunk_count);
-		while (chunk_size > 0)
+		int	i = chunk_size;
+		while (i > 0)
 		{
-			push_cheapest(r, a, b, n, 
-			move_pb(r, a, b, n);
-			num_pushed++;
-			chunk_size--;
+			push_cheapest(r, a, b, n, num_pushed, chunk_size - 1);
+			i--;
 		}
-		//move_pb(r, a, b, n);	
-		chunk_size = n / 2;
+		num_pushed += chunk_size;
+		chunk_size = n / CHUNK_COUNT;
 		chunk_count--;
 	}
-	(void)r;
 	stack_print(a, b, n);
-	/*
 	while (b->count > 0)
 	{
-		push_greatest(r, a, b, n);
+		num_pushed--;
+		push_cheapest(r, b, a, n, num_pushed, num_pushed);
 	}
-	*/
+	stack_print(a, b, n);
 }
 
 void	sort_small(t_record *r, t_stack *a, int n)
