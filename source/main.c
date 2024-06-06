@@ -88,9 +88,7 @@ int	get_mvcount_bottom(t_stack *s, int n, int low, int high)
 	return (move_count);
 }
 
-#define CHUNK_COUNT 5
-
-void	push_cheapest(t_record *r, t_stack *a, t_stack *b, int n, int low, int high)
+void	push_in_range(t_record *r, t_stack *a, t_stack *b, int n, int low, int high)
 {
 	int	mv_count_top;
 	int	mv_count_bottom;
@@ -114,7 +112,22 @@ void	push_cheapest(t_record *r, t_stack *a, t_stack *b, int n, int low, int high
 
 void	push_back(t_record *r, t_stack *a, t_stack *b, int n)
 {
+	int	i;
+	int	high;
+	int	low;
 
+	while (b->count > 1)
+	{
+		high = b->count - 1;
+		low = b->count - 2;
+		i = 2;
+		while (i--)
+			push_in_range(r, b, a, n, low, high);
+		if (a->arr[n - a->count] > a->arr[n - a->count + 1])
+			move_sa(r, a, n);
+	}
+	if (b->count > 0)
+		move_pa(r, a, b, n);
 }
 
 void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
@@ -131,7 +144,7 @@ void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 		while (i > 0)
 		{
 			int high = num_pushed + chunk_size - 1;
-			push_cheapest(r, a, b, n, num_pushed, high);
+			push_in_range(r, a, b, n, num_pushed, high);
 			if (b->arr[n - b->count] < (num_pushed + (chunk_size / 2)))
 			{
 				printf("rotating: %d, median: %d\n", b->arr[n - b->count], (num_pushed + (chunk_size / 2)));
@@ -145,17 +158,7 @@ void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 	}
 	stack_print(a, b, n);
 	printf("move_count: %d, num_pushed %d\n", r->move_count, num_pushed);
-	while (b->count > 0)
-	{
-		num_pushed--;
-		/*int	second = num_pushed - 2;
-		if (second < 0)
-			second = num_pushed;
-		if (num_pushed == 0)
-			break;
-			*/
-		push_cheapest(r, b, a, n, num_pushed, num_pushed);
-	}
+	push_back(r, a, b, n);
 	stack_print(a, b, n);
 }
 
@@ -166,20 +169,13 @@ void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
 	else if (n == 3)
 		sort_three(r, a, n);
 	else
-	{
-		/*
-		stack_print(a, b, n);
-		sort_turkish(r, a, b, n);
-		printf("\n");
-		stack_print(a, b, n);
-		*/
 		push_in_chunks(r, a, b, n);
-		//sort_insertion_sort(r, a, b, n);
-	}
 	if (!r->str)
 		return ;
 	//ft_putstr_fd(r->str, 1);
 	free(r->str);
+	if (array_is_sorted(a->arr, n))
+		printf("sorted!\n");
 	printf("move_count: %d\n", r->move_count);
 }
 
@@ -198,7 +194,6 @@ int push_swap(int *a, int *b, int n)
 	r.move_count = 0;
 	r.str = NULL;
 	array_normalize(a, n);
-	//stack_print(&a_stack, &b_stack, n);
 	sort_stack(&r, &a_stack, &b_stack, n);
 	return (1);
 }

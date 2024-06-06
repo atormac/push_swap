@@ -89,6 +89,7 @@ int		find_cheapest(struct t_stacks stacks)
 	{
 		i++;
 	}
+	(void)a;
 	return (0);
 }
 

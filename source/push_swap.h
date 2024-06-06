@@ -15,6 +15,8 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_WAP_H
 
+# define CHUNK_COUNT 5
+
 typedef struct t_stack
 {
 	long count;
@@ -32,6 +34,7 @@ typedef struct t_record
 {
 	int		move_count;
 	char	*str;
+	size_t	buffer_size;
 }	t_record;
 
 enum
