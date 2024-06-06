@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/06 15:08:13 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:36:44 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct t_stack
 
 typedef struct t_stacks
 {
-	long	n;
+	long	size;
 	t_stack *a;
 	t_stack *b;
 }	t_stacks;
@@ -35,10 +35,12 @@ typedef struct t_record
 	int		move_count;
 	char	*str;
 	size_t	buffer_size;
+	int		last_move;
 }	t_record;
 
 enum
 {
+	MV_EMPTY,
 	MV_SA,
 	MV_SB,
 	MV_SS,
@@ -56,6 +58,7 @@ void	array_fill(int *arr, int n, char **argv);
 void	array_normalize(int *arr, int n);
 void	array_print(int *arr, int n);
 int		array_is_sorted(int *arr, int n);
+void	stack_init(t_stacks *stacks, t_stack *a, t_stack *b, int n);
 void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
 void	move_sa(t_record *r, t_stack *a, int n);
 void	move_sb(t_record *r, t_stack *b, int n);

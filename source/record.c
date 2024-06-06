@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:41:37 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/06 15:15:42 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:38:34 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	record_init(t_record *r)
 {
 	r->buffer_size = 0;
 	r->move_count = 0;
+	r->last_move = MV_EMPTY;
 	if (r->str == NULL)
 	{
 		r->str = ft_calloc(1, 2048);
@@ -26,7 +27,7 @@ int	record_init(t_record *r)
 	return (1);
 }
 
-int	record_append_str(t_record *r, char *str, int move)
+int	record_append_str(t_record *r, int move)
 {
 	char	*mv;
 
@@ -46,8 +47,9 @@ int	record_append_str(t_record *r, char *str, int move)
 		mv = "rb";
 	if (move == MV_RRB)
 		mv = "rrb";
-	ft_strlcat(str, mv, r->buffer_size);
-	ft_strlcat(str, "\n", r->buffer_size);
+	ft_strlcat(r->str, mv, r->buffer_size);
+	ft_strlcat(r->str, "\n", r->buffer_size);
+	r->last_move = move;
 	return (1);
 }
 
@@ -64,7 +66,7 @@ int	record_move(t_record *r, int move)
 		r->str = new;
 		r->buffer_size += 1024;
 	}
-	record_append_str(r, r->str, move);
+	record_append_str(r, move);
 	r->move_count++;
 	return (1);
 }

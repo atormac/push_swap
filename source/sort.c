@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:16:09 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/05 21:53:48 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:33:25 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	sort_three(t_record *r, t_stack *s, int n)
 		move_rev_rotate(r, s, n);
 }
 
+/*
 int		find_cheapest(struct t_stacks stacks)
 {
 	int	i;
@@ -112,3 +113,4 @@ void	sort_turkish(t_record *r, t_stack *a, t_stack *b, int n)
 	}
 	sort_three(r, stacks.a, stacks.n);
 }
+*/

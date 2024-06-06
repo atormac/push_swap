@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/06 15:16:12 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:32:23 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,25 +162,26 @@ void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 	stack_print(a, b, n);
 }
 
-void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
+void	sort_stack(t_record *r, t_stacks *stacks)
 {
-	if (n == 2)
-		move_sa(r, a, n);
-	else if (n == 3)
-		sort_three(r, a, n);
+	if (stacks->size == 2)
+		move_sa(r, stacks->a, stacks->size);
+	else if (stacks->size == 3)
+		sort_three(r, stacks->a, stacks->size);
 	else
-		push_in_chunks(r, a, b, n);
+		push_in_chunks(r, stacks->a, stacks->b, stacks->size);
 	if (!r->str)
 		return ;
 	ft_putstr_fd(r->str, 1);
 	free(r->str);
-	if (array_is_sorted(a->arr, n))
+	if (array_is_sorted(stacks->a->arr, stacks->size))
 		printf("sorted!\n");
 	printf("move_count: %d\n", r->move_count);
 }
 
 int push_swap(int *a, int *b, int n)
 {
+	struct t_stacks stacks;
 	struct t_stack	a_stack;
 	struct t_stack	b_stack;
 	struct t_record r;
@@ -193,8 +194,9 @@ int push_swap(int *a, int *b, int n)
 	a_stack.count = n;
 	b_stack.arr = b;
 	b_stack.count = 0;
+	stack_init(&stacks, &a_stack, &b_stack, n);
 	array_normalize(a, n);
-	sort_stack(&r, &a_stack, &b_stack, n);
+	sort_stack(&r, &stacks);
 	return (1);
 }
 
