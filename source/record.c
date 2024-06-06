@@ -6,13 +6,27 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:41:37 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 21:10:20 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:15:42 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	record_append_str(char *str, int move)
+int	record_init(t_record *r)
+{
+	r->buffer_size = 0;
+	r->move_count = 0;
+	if (r->str == NULL)
+	{
+		r->str = ft_calloc(1, 2048);
+		if (r->str == NULL)
+			return (0);
+		r->buffer_size = 2048;
+	}
+	return (1);
+}
+
+int	record_append_str(t_record *r, char *str, int move)
 {
 	char	*mv;
 
@@ -32,20 +46,25 @@ int	record_append_str(char *str, int move)
 		mv = "rb";
 	if (move == MV_RRB)
 		mv = "rrb";
-	ft_strlcat(str, mv, 2048);
-	ft_strlcat(str, "\n", 2048);
+	ft_strlcat(str, mv, r->buffer_size);
+	ft_strlcat(str, "\n", r->buffer_size);
 	return (1);
 }
 
 int	record_move(t_record *r, int move)
 {
-	if (r->str == NULL)
+	char	*new;
+	if (r->buffer_size - ft_strlen(r->str) < 32)
 	{
-		r->str = ft_calloc(1, 2048);
-		if (r->str == NULL)
-			return (-1);
+		new = ft_calloc(1, r->buffer_size + 1024);
+		if (!new)
+			return (0);
+		ft_memcpy(new, r->str, r->buffer_size);
+		free(r->str);
+		r->str = new;
+		r->buffer_size += 1024;
 	}
-	record_append_str(r->str, move);
+	record_append_str(r, r->str, move);
 	r->move_count++;
 	return (1);
 }

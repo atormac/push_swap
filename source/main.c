@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/05 23:22:09 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:16:12 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 		chunk_count--;
 	}
 	stack_print(a, b, n);
-	printf("move_count: %d, num_pushed %d\n", r->move_count, num_pushed);
+	printf("move_count: %d\n", r->move_count);
 	push_back(r, a, b, n);
 	stack_print(a, b, n);
 }
@@ -172,7 +172,7 @@ void	sort_stack(t_record *r, t_stack *a, t_stack *b, int n)
 		push_in_chunks(r, a, b, n);
 	if (!r->str)
 		return ;
-	//ft_putstr_fd(r->str, 1);
+	ft_putstr_fd(r->str, 1);
 	free(r->str);
 	if (array_is_sorted(a->arr, n))
 		printf("sorted!\n");
@@ -187,12 +187,12 @@ int push_swap(int *a, int *b, int n)
 
 	if (array_is_sorted(a, n))
 		return (1);
+	if (!record_init(&r))
+		return (0);
 	a_stack.arr = a;
 	a_stack.count = n;
 	b_stack.arr = b;
 	b_stack.count = 0;
-	r.move_count = 0;
-	r.str = NULL;
 	array_normalize(a, n);
 	sort_stack(&r, &a_stack, &b_stack, n);
 	return (1);

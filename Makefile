@@ -6,7 +6,7 @@
 #    By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 21:09:57 by atorma            #+#    #+#              #
-#    Updated: 2024/06/05 20:17:48 by atorma           ###   ########.fr        #
+#    Updated: 2024/06/06 14:53:19 by atorma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBDIR = ./libft
 
 all: $(NAME)
 
-debug: CFLAGS += -g
+debug: CFLAGS += -g -fsanitize=address
 debug: clean_obj all
 
 $(NAME): $(OBJECTS)
