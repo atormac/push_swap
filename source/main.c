@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/06 15:32:23 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:48:55 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,11 @@ void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
 	int	chunk_count = n / chunk_size;
 	int	num_pushed = 0;
 
-	chunk_size += n % chunk_size;
 	stack_print(a, b, n);
 	while (chunk_count > 0)
 	{
+		if (chunk_count == 1)
+			chunk_size += n % chunk_size;
 		int	i = chunk_size;
 		while (i > 0)
 		{
