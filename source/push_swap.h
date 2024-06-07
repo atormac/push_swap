@@ -60,6 +60,8 @@ void	array_print(int *arr, int n);
 int		array_is_sorted(int *arr, int n);
 void	stack_init(t_stacks *stacks, t_stack *a, t_stack *b, int n);
 void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
+int		cost_top(t_stack *s, int n, int low, int high);
+int		cost_down(t_stack *s, int n, int low, int high);
 void	move_sa(t_record *r, t_stack *a, int n);
 void	move_sb(t_record *r, t_stack *b, int n);
 void	move_pa(t_record *r, t_stack *a, t_stack *b, int n);

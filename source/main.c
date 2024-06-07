@@ -14,47 +14,13 @@
 #include <stdio.h>
 
 
-int	get_mvcount_top(t_stack *s, int n, int low, int high)
-{
-	int i;
-	int	move_count;
-
-	move_count = 0;
-	i = n - s->count;
-	while (i < s->count)
-	{
-		if (s->arr[i] >= low && s->arr[i] <= high)
-			break;
-		i++;
-		move_count++;
-	}
-	return (move_count);
-}
-
-int	get_mvcount_bottom(t_stack *s, int n, int low, int high)
-{
-	int i;
-	int	move_count;
-
-	move_count = 1;
-	i = n - 1;
-	while (i >= s->count)
-	{
-		if (s->arr[i] >= low && s->arr[i] <= high)
-			break;
-		i--;
-		move_count++;
-	}
-	return (move_count);
-}
-
 void	push_in_range(t_record *r, t_stack *a, t_stack *b, int n, int low, int high)
 {
 	int	mv_count_top;
 	int	mv_count_bottom;
 
-	mv_count_top = get_mvcount_top(a, n, low, high);
-	mv_count_bottom = get_mvcount_bottom(a, n, low, high);
+	mv_count_top = cost_top(a, n, low, high);
+	mv_count_bottom = cost_down(a, n, low, high);
 	int	top = a->arr[n - a->count];
 
 	while (1)
