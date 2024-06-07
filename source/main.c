@@ -13,46 +13,6 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-int	get_distance_top(int *arr, int n, int val)
-{
-	int i = 0;
-
-	while (i < n)
-	{
-		if (arr[i] == val)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-void	sort_insertion_sort(t_record *r, t_stack *a, t_stack *b, int n)
-{
-	int	num = 0;
-	int	rotate;
-
-	while (a->count > 0)
-	{
-		rotate = 1;
-		int a_top = n - a->count;
-		int	current = a->arr[a_top];
-		int	dist = get_distance_top(a->arr + a_top, a->count, num);
-		if (dist > a->count / 2)
-			rotate = 0;
-		while (current != num)
-		{
-			if (rotate)
-				move_rotate(r, a, n);
-			else
-				move_rev_rotate(r, a, n);
-			current = a->arr[n - a->count];
-		}
-		move_pb(r, a, b, n);
-		num++;
-	}
-	while (b->count > 0)
-		move_pa(r, a, b, n);
-}
 
 int	get_mvcount_top(t_stack *s, int n, int low, int high)
 {
@@ -130,37 +90,30 @@ void	push_back(t_record *r, t_stack *a, t_stack *b, int n)
 		move_pa(r, a, b, n);
 }
 
-void	push_in_chunks(t_record *r, t_stack *a, t_stack *b, int n)
+void	push_in_chunks(t_record *r, t_stacks *stacks)
 {
-	int	chunk_size = n / CHUNK_COUNT;
-	int	chunk_count = n / chunk_size;
+	int	chunk_size = stacks->size / CHUNK_COUNT;
+	int	chunk_count = stacks->size / chunk_size;
 	int	num_pushed = 0;
 
-	stack_print(a, b, n);
 	while (chunk_count > 0)
 	{
 		if (chunk_count == 1)
-			chunk_size += n % chunk_size;
+			chunk_size += stacks->size % chunk_size;
 		int	i = chunk_size;
 		while (i > 0)
 		{
 			int high = num_pushed + chunk_size - 1;
-			push_in_range(r, a, b, n, num_pushed, high);
-			if (b->arr[n - b->count] < (num_pushed + (chunk_size / 2)))
-			{
-				printf("rotating: %d, median: %d\n", b->arr[n - b->count], (num_pushed + (chunk_size / 2)));
-				move_rotate(r, b, n);
-			}
+			push_in_range(r, stacks->a, stacks->b, stacks->size, num_pushed, high);
+			if (stacks->b->arr[stacks->size - stacks->b->count] < (num_pushed + (chunk_size / 2)))
+				move_rotate(r, stacks->b, stacks->size);
 			i--;
 		}
 		num_pushed += chunk_size;
-		chunk_size = n / CHUNK_COUNT;
+		chunk_size = stacks->size / CHUNK_COUNT;
 		chunk_count--;
 	}
-	stack_print(a, b, n);
-	printf("move_count: %d\n", r->move_count);
-	push_back(r, a, b, n);
-	stack_print(a, b, n);
+	push_back(r, stacks->a, stacks->b, stacks->size);
 }
 
 void	sort_stack(t_record *r, t_stacks *stacks)
@@ -170,7 +123,7 @@ void	sort_stack(t_record *r, t_stacks *stacks)
 	else if (stacks->size == 3)
 		sort_three(r, stacks->a, stacks->size);
 	else
-		push_in_chunks(r, stacks->a, stacks->b, stacks->size);
+		push_in_chunks(r, stacks);
 	if (!r->str)
 		return ;
 	ft_putstr_fd(r->str, 1);

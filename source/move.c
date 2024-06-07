@@ -26,11 +26,6 @@ void	move_sa(t_record *r, t_stack *a, int n)
 	record_move(r, MV_SA);
 }
 
-void	move_sb(t_record *r, t_stack *b, int n)
-{
-	move_sa(r, b, n);
-}
-
 void	move_pa(t_record *r, t_stack *a, t_stack *b, int n)
 {
 	int	b_top;

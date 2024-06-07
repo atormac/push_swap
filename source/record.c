@@ -17,13 +17,10 @@ int	record_init(t_record *r)
 	r->buffer_size = 0;
 	r->move_count = 0;
 	r->last_move = MV_EMPTY;
+	r->str = ft_calloc(1, 2048);
 	if (r->str == NULL)
-	{
-		r->str = ft_calloc(1, 2048);
-		if (r->str == NULL)
-			return (0);
-		r->buffer_size = 2048;
-	}
+		return (0);
+	r->buffer_size = 2048;
 	return (1);
 }
 
