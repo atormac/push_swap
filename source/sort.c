@@ -61,15 +61,15 @@ void	sort_three(t_record *r, t_stack *s, int n)
 	greatest = get_max_dist(top_stack, s->count);
 	smallest = get_min_dist(top_stack, s->count);
 	if (greatest == 2)
-		move_sa(r, s, n);
+		move_swap(r, s, n);
 	else if (greatest == 0 && smallest == 2)
 	{
-		move_sa(r, s, n);
+		move_swap(r, s, n);
 		move_rev_rotate(r, s, n);
 	}
 	else if (greatest == 1 && smallest == 0)
 	{
-		move_sa(r, s, n);
+		move_swap(r, s, n);
 		move_rotate(r, s, n);
 	}
 	else if (greatest == 0 && smallest == 1)

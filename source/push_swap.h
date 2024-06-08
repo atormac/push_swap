@@ -17,10 +17,17 @@
 
 # define CHUNK_COUNT 5
 
+enum
+{
+	STACK_A,
+	STACK_B
+};
+
 typedef struct t_stack
 {
-	long count;
-	int *arr;
+	int		id;
+	long	count;
+	int		*arr;
 }	t_stack;
 
 typedef struct t_stacks
@@ -62,7 +69,7 @@ void	stack_init(t_stacks *stacks, t_stack *a, t_stack *b, int n);
 void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
 int		cost_top(t_stack *s, int n, int low, int high);
 int		cost_down(t_stack *s, int n, int low, int high);
-void	move_sa(t_record *r, t_stack *a, int n);
+void	move_swap(t_record *r, t_stack *a, int n);
 void	move_sb(t_record *r, t_stack *b, int n);
 void	move_pa(t_record *r, t_stack *a, t_stack *b, int n);
 void	move_pb(t_record *r, t_stack *a, t_stack *b, int n);

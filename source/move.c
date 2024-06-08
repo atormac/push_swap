@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	move_sa(t_record *r, t_stack *a, int n)
+void	move_swap(t_record *r, t_stack *a, int n)
 {
 	int	top;
 	int	tmp;
@@ -23,7 +23,10 @@ void	move_sa(t_record *r, t_stack *a, int n)
 	tmp = a->arr[top + 1];
 	a->arr[top + 1] = a->arr[top];
 	a->arr[top] = tmp;
-	record_move(r, MV_SA);
+	if (a->id == STACK_A)
+		record_move(r, MV_SA);
+	else
+		record_move(r, MV_SB);
 }
 
 void	move_pa(t_record *r, t_stack *a, t_stack *b, int n)
@@ -71,7 +74,10 @@ void	move_rotate(t_record *r, t_stack *s, int n)
 	tmp = s->arr[top];
 	ft_memmove(s->arr + top, s->arr + top + 1, (s->count - 1) * sizeof(int));
 	s->arr[last] = tmp;
-	record_move(r, MV_RA);
+	if (s->id == STACK_A)
+		record_move(r, MV_RA);
+	else
+		record_move(r, MV_RB);
 }
 
 void	move_rev_rotate(t_record *r, t_stack *s, int n)
@@ -87,5 +93,8 @@ void	move_rev_rotate(t_record *r, t_stack *s, int n)
 	tmp = s->arr[last];
 	ft_memmove(s->arr + top + 1, s->arr + top, (s->count - 1) * sizeof(int));
 	s->arr[top] = tmp;
-	record_move(r, MV_RRA);
+	if (s->id == STACK_A)
+		record_move(r, MV_RRA);
+	else
+		record_move(r, MV_RRB);
 }

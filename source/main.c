@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 
-void	push_in_range(t_record *r, t_stack *a, t_stack *b, int n, int low, int high)
+void	rotate_in_range(t_record *r, t_stack *a, int n, int low, int high)
 {
 	int	mv_count_top;
 	int	mv_count_bottom;
@@ -33,7 +33,6 @@ void	push_in_range(t_record *r, t_stack *a, t_stack *b, int n, int low, int high
 			move_rotate(r, a, n);
 		top = a->arr[n - a->count];
 	}
-	move_pb(r, a, b, n);
 }
 
 void	push_back(t_record *r, t_stack *a, t_stack *b, int n)
@@ -48,9 +47,12 @@ void	push_back(t_record *r, t_stack *a, t_stack *b, int n)
 		low = b->count - 2;
 		i = 2;
 		while (i--)
-			push_in_range(r, b, a, n, low, high);
+		{
+			rotate_in_range(r, b, n, low, high);
+			move_pa(r, a, b, n);
+		}
 		if (a->arr[n - a->count] > a->arr[n - a->count + 1])
-			move_sa(r, a, n);
+			move_swap(r, a, n);
 	}
 	if (b->count > 0)
 		move_pa(r, a, b, n);
@@ -70,7 +72,8 @@ void	push_in_chunks(t_record *r, t_stacks *stacks)
 		while (i > 0)
 		{
 			int high = num_pushed + chunk_size - 1;
-			push_in_range(r, stacks->a, stacks->b, stacks->size, num_pushed, high);
+			rotate_in_range(r, stacks->a, stacks->size, num_pushed, high);
+			move_pb(r, stacks->a, stacks->b, stacks->size);
 			if (stacks->b->arr[stacks->size - stacks->b->count] < (num_pushed + (chunk_size / 2)))
 				move_rotate(r, stacks->b, stacks->size);
 			i--;
@@ -79,13 +82,14 @@ void	push_in_chunks(t_record *r, t_stacks *stacks)
 		chunk_size = stacks->size / CHUNK_COUNT;
 		chunk_count--;
 	}
+	stack_print(stacks->a, stacks->b, stacks->size);
 	push_back(r, stacks->a, stacks->b, stacks->size);
 }
 
 void	sort_stack(t_record *r, t_stacks *stacks)
 {
 	if (stacks->size == 2)
-		move_sa(r, stacks->a, stacks->size);
+		move_swap(r, stacks->a, stacks->size);
 	else if (stacks->size == 3)
 		sort_three(r, stacks->a, stacks->size);
 	else
@@ -112,8 +116,10 @@ int push_swap(int *a, int *b, int n)
 		return (0);
 	a_stack.arr = a;
 	a_stack.count = n;
+	a_stack.id = STACK_A;
 	b_stack.arr = b;
 	b_stack.count = 0;
+	b_stack.id = STACK_B;
 	stack_init(&stacks, &a_stack, &b_stack, n);
 	array_normalize(a, n);
 	sort_stack(&r, &stacks);
