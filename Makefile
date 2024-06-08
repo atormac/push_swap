@@ -20,7 +20,7 @@ LIBDIR = ./libft
 
 all: $(NAME)
 
-debug: CFLAGS += -g -fsanitize=address
+debug: CFLAGS += -g
 debug: clean_obj all
 
 $(NAME): $(OBJECTS)

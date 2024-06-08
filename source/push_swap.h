@@ -79,6 +79,5 @@ int		record_init(t_record *r);
 int		record_move(t_record *r, int move);
 int		get_distance_top(int *arr, int n, int val);
 void	sort_three(t_record *r, t_stack *s, int n);
-void	sort_turkish(t_record *r, t_stack *a, t_stack *b, int n);
 
 #endif

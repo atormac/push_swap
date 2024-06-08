@@ -55,12 +55,18 @@ void	push_back(t_record *r, t_stack *a, t_stack *b, int n)
 			move_swap(r, a, n);
 	}
 	if (b->count > 0)
+	{
+		if (a->arr[n - a->count] > a->arr[n - a->count + 1])
+			move_swap(r, a, n);
 		move_pa(r, a, b, n);
+	}
 }
 
 void	push_in_chunks(t_record *r, t_stacks *stacks)
 {
 	int	chunk_size = stacks->size / CHUNK_COUNT;
+	if (chunk_size == 0)
+		chunk_size = 1;
 	int	chunk_count = stacks->size / chunk_size;
 	int	num_pushed = 0;
 
@@ -69,9 +75,11 @@ void	push_in_chunks(t_record *r, t_stacks *stacks)
 		if (chunk_count == 1)
 			chunk_size += stacks->size % chunk_size;
 		int	i = chunk_size;
-		while (i > 0)
+		while (stacks->a->count > 3 && i > 0)
 		{
 			int high = num_pushed + chunk_size - 1;
+			if (chunk_count == 1)
+				high -= 3;
 			rotate_in_range(r, stacks->a, stacks->size, num_pushed, high);
 			move_pb(r, stacks->a, stacks->b, stacks->size);
 			if (stacks->b->arr[stacks->size - stacks->b->count] < (num_pushed + (chunk_size / 2)))
@@ -79,9 +87,10 @@ void	push_in_chunks(t_record *r, t_stacks *stacks)
 			i--;
 		}
 		num_pushed += chunk_size;
-		chunk_size = stacks->size / CHUNK_COUNT;
 		chunk_count--;
 	}
+	if (!array_is_sorted(stacks->a->arr, stacks->size))
+		sort_three(r, stacks->a, stacks->size);
 	stack_print(stacks->a, stacks->b, stacks->size);
 	push_back(r, stacks->a, stacks->b, stacks->size);
 }
@@ -98,7 +107,7 @@ void	sort_stack(t_record *r, t_stacks *stacks)
 		return ;
 	ft_putstr_fd(r->str, 1);
 	free(r->str);
-	if (array_is_sorted(stacks->a->arr, stacks->size))
+	if (stacks->size == stacks->a->count && array_is_sorted(stacks->a->arr, stacks->size))
 		printf("sorted!\n");
 	printf("move_count: %d\n", r->move_count);
 }

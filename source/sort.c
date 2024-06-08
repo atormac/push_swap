@@ -62,7 +62,6 @@ void	sort_three(t_record *r, t_stack *s, int n)
 	top_stack = s->arr + n - s->count;
 	greatest = get_max_dist(top_stack, s->count);
 	smallest = get_min_dist(top_stack, s->count);
-	printf("smallest: %d, %d\n", smallest, greatest);
 	if (greatest == 2)
 		move_swap(r, s, n);
 	else if (greatest == 0 && smallest == 2)
