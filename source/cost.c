@@ -7,7 +7,7 @@ int	cost_top(t_stack *s, int n, int low, int high)
 
 	move_count = 0;
 	i = n - s->count;
-	while (i < s->count)
+	while (i < n)
 	{
 		if (s->arr[i] >= low && s->arr[i] <= high)
 			break;
