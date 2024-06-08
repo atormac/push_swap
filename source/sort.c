@@ -20,6 +20,7 @@ int	get_min_dist(int *arr, int count)
 	int	min_index;
 
 	min = arr[0];
+	min_index = 0;
 	while (i < count)
 	{
 		if (arr[i] < min)
@@ -39,6 +40,7 @@ int	get_max_dist(int *arr, int count)
 	int	max_index;
 
 	max = arr[0];
+	max_index = 0;
 	while (i < count)
 	{
 		if (arr[i] > max)
@@ -60,6 +62,7 @@ void	sort_three(t_record *r, t_stack *s, int n)
 	top_stack = s->arr + n - s->count;
 	greatest = get_max_dist(top_stack, s->count);
 	smallest = get_min_dist(top_stack, s->count);
+	printf("smallest: %d, %d\n", smallest, greatest);
 	if (greatest == 2)
 		move_swap(r, s, n);
 	else if (greatest == 0 && smallest == 2)
@@ -77,40 +80,3 @@ void	sort_three(t_record *r, t_stack *s, int n)
 	else if (greatest == 1 && smallest == 2)
 		move_rev_rotate(r, s, n);
 }
-
-/*
-int		find_cheapest(struct t_stacks stacks)
-{
-	int	i;
-	int	*a;
-
-	i = 0;
-	a = stacks.a->arr + stacks.n - stacks.a->count;
-	while (i < stacks.a->count)
-	{
-		i++;
-	}
-	(void)a;
-	return (0);
-}
-
-void	sort_turkish(t_record *r, t_stack *a, t_stack *b, int n)
-{
-	t_stacks stacks;
-
-	stacks.n = n;
-	stacks.a = a;
-	stacks.b = b;
-	move_pb(r, a, b, n);
-	move_pb(r, a, b, n);
-
-	while (stacks.a->count > 3)
-	{
-		int	cheapest = find_cheapest(stacks);
-		(void)cheapest;
-		move_pb(r, a, b, n);
-		
-	}
-	sort_three(r, stacks.a, stacks.n);
-}
-*/
