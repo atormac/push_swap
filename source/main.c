@@ -13,7 +13,6 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-
 void	rotate_in_range(t_record *r, t_stack *a, int n, int low, int high)
 {
 	int	mv_count_top;
@@ -62,29 +61,42 @@ void	push_back(t_record *r, t_stack *a, t_stack *b, int n)
 	}
 }
 
-void	push_in_chunks(t_record *r, t_stacks *stacks, int chunk_count, int chunk_size)
+void	push_chunks(t_record *r, t_stacks *stacks, int chunk_count, int chunk_size)
 {
-	int	num;
+	int	i;
+	int	low;
+	int	high;
 
 	while (chunk_count > 0)
 	{
-		num = stacks->b->count;
+		low = stacks->b->count;
 		if (chunk_count == 1)
 			chunk_size += stacks->size % chunk_size;
-		int	i = chunk_size;
-		while (stacks->a->count > 3 && i > 0)
+		i = chunk_size;
+		while (stacks->a->count > 3 && i-- > 0)
 		{
-			int high = num + chunk_size - 1;
+			high = low + chunk_size - 1;
 			if (chunk_count == 1)
 				high -= 3;
-			rotate_in_range(r, stacks->a, stacks->size, num, high);
+			rotate_in_range(r, stacks->a, stacks->size, low, high);
 			move_pb(r, stacks->a, stacks->b, stacks->size);
-			if (stacks->b->arr[stacks->size - stacks->b->count] < (num + (chunk_size / 2)))
+			if (stacks->b->arr[stacks->size - stacks->b->count] < (low + (chunk_size / 2)))
 				move_rotate(r, stacks->b, stacks->size);
-			i--;
 		}
 		chunk_count--;
 	}
+}
+
+void	sort_chunked(t_record *r, t_stacks *stacks)
+{
+	int	chunk_size;
+	int	chunk_count;
+
+	chunk_size = stacks->size / CHUNK_COUNT;
+	if (chunk_size == 0)
+		chunk_size = 1;
+	chunk_count = stacks->size / chunk_size;
+	push_chunks(r, stacks, chunk_count, chunk_size);
 	if (!array_is_sorted(stacks->a->arr, stacks->size))
 		sort_three(r, stacks->a, stacks->size);
 	stack_print(stacks->a, stacks->b, stacks->size);
@@ -98,13 +110,7 @@ void	sort_stack(t_record *r, t_stacks *stacks)
 	else if (stacks->size == 3)
 		sort_three(r, stacks->a, stacks->size);
 	else
-	{
-		int	chunk_size = stacks->size / CHUNK_COUNT;
-		if (chunk_size == 0)
-			chunk_size = 1;
-		int	chunk_count = stacks->size / chunk_size;
-		push_in_chunks(r, stacks, chunk_count, chunk_size);
-	}
+		sort_chunked(r, stacks);
 	if (!r->str)
 		return ;
 	ft_putstr_fd(r->str, 1);

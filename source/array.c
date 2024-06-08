@@ -78,20 +78,6 @@ void	array_normalize(int *arr, int n)
 	free(tab);
 }
 
-void	array_print(int *arr, int n)
-{
-	int i;
-
-	i = 0;
-	while (i < n)
-	{
-		ft_putnbr_fd(arr[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
-	}
-}
-
-
 int	array_is_sorted(int *arr, int n)
 {
 	int	i;

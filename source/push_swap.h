@@ -63,7 +63,6 @@ int		args_validate(int argc, char **argv);
 int		*array_alloc(int n);
 void	array_fill(int *arr, int n, char **argv);
 void	array_normalize(int *arr, int n);
-void	array_print(int *arr, int n);
 int		array_is_sorted(int *arr, int n);
 void	stack_init(t_stacks *stacks, t_stack *a, t_stack *b, int n);
 void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
