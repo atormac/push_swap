@@ -11,113 +11,30 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	error()
+{
+	ft_putstr_fd("Error\n", 2);
+	return (0);
+}
+
 #include <stdio.h>
-
-void	rotate_in_range(t_record *r, t_stack *a, int n, int low, int high)
+int	push_swap_init(int argc, char **argv, int size, int **a, int **b)
 {
-	int	mv_count_top;
-	int	mv_count_bottom;
+	int	n;
 
-	mv_count_top = cost_top(a, n, low, high);
-	mv_count_bottom = cost_down(a, n, low, high);
-	int	top = a->arr[n - a->count];
-
-	while (1)
+	n = size - 1;
+	*a = array_alloc(n);
+	*b = array_alloc(n);
+	if (!*a || !*b)
 	{
-		if (top >= low && top <= high)
-			break;
-		if (mv_count_bottom < mv_count_top)
-			move_rev_rotate(r, a, n);
-		else
-			move_rotate(r, a, n);
-		top = a->arr[n - a->count];
+		free(*a);
+		free(*b);
+		return (0);
 	}
-}
-
-void	push_back(t_record *r, t_stack *a, t_stack *b, int n)
-{
-	int	i;
-	int	high;
-	int	low;
-
-	while (b->count > 1)
-	{
-		high = b->count - 1;
-		low = b->count - 2;
-		i = 2;
-		while (i--)
-		{
-			rotate_in_range(r, b, n, low, high);
-			move_pa(r, a, b, n);
-		}
-		if (a->arr[n - a->count] > a->arr[n - a->count + 1])
-			move_swap(r, a, n);
-	}
-	if (b->count > 0)
-	{
-		move_pa(r, a, b, n);
-		if (a->arr[n - a->count] > a->arr[n - a->count + 1])
-			move_swap(r, a, n);
-	}
-}
-
-void	push_chunks(t_record *r, t_stacks *stacks, int chunk_count, int chunk_size)
-{
-	int	i;
-	int	low;
-	int	high;
-
-	while (chunk_count > 0)
-	{
-		low = stacks->b->count;
-		if (chunk_count == 1)
-			chunk_size += stacks->size % chunk_size;
-		i = chunk_size;
-		while (stacks->a->count > 3 && i-- > 0)
-		{
-			high = low + chunk_size - 1;
-			if (chunk_count == 1)
-				high -= 3;
-			rotate_in_range(r, stacks->a, stacks->size, low, high);
-			move_pb(r, stacks->a, stacks->b, stacks->size);
-			if (stacks->b->arr[stacks->size - stacks->b->count] < (low + (chunk_size / 2)))
-				move_rotate(r, stacks->b, stacks->size);
-		}
-		chunk_count--;
-	}
-}
-
-void	sort_chunked(t_record *r, t_stacks *stacks)
-{
-	int	chunk_size;
-	int	chunk_count;
-
-	chunk_size = stacks->size / CHUNK_COUNT;
-	if (chunk_size == 0)
-		chunk_size = 1;
-	chunk_count = stacks->size / chunk_size;
-	push_chunks(r, stacks, chunk_count, chunk_size);
-	if (!array_is_sorted(stacks->a->arr, stacks->size))
-		sort_three(r, stacks->a, stacks->size);
-	stack_print(stacks->a, stacks->b, stacks->size);
-	push_back(r, stacks->a, stacks->b, stacks->size);
-}
-
-void	sort_stack(t_record *r, t_stacks *stacks)
-{
-	if (stacks->size == 2)
-		move_swap(r, stacks->a, stacks->size);
-	else if (stacks->size == 3)
-		sort_three(r, stacks->a, stacks->size);
-	else
-		sort_chunked(r, stacks);
-	if (!r->str)
-		return ;
-	ft_putstr_fd(r->str, 1);
-	free(r->str);
-	if (stacks->size == stacks->a->count && array_is_sorted(stacks->a->arr, stacks->size))
-		printf("sorted!\n");
-	printf("move_count: %d\n", r->move_count);
+	array_fill(*a, argc, argv);
+	printf("array filled\n");
+	return (1);
 }
 
 int push_swap(int *a, int *b, int n)
@@ -130,7 +47,9 @@ int push_swap(int *a, int *b, int n)
 	if (array_is_sorted(a, n))
 		return (1);
 	if (!record_init(&r))
-		return (0);
+		return (error());
+	if (!array_normalize(a, n))
+		return (error());
 	a_stack.arr = a;
 	a_stack.count = n;
 	a_stack.id = STACK_A;
@@ -138,46 +57,24 @@ int push_swap(int *a, int *b, int n)
 	b_stack.count = 0;
 	b_stack.id = STACK_B;
 	stack_init(&stacks, &a_stack, &b_stack, n);
-	array_normalize(a, n);
 	sort_stack(&r, &stacks);
 	return (1);
 }
-
-int	push_swap_init(int argc, char **argv, int **a, int **b)
-{
-	int	n;
-
-	n = argc - 1;
-	*a = array_alloc(n);
-	*b = array_alloc(n);
-	if (!*a || !*b)
-	{
-		free(*a);
-		free(*b);
-		return (0);
-	}
-	array_fill(*a, n, argv);
-	return (1);
-}
-
+#include <stdio.h>
 int main(int argc, char **argv)
 {
+	int	size;
 	int	*a;
 	int	*b;
 
 	if (argc <= 1)
 		return (0);
-	if (!args_validate(argc, argv))
-	{
-		ft_putstr_fd("Error\n", 2);
-		return (0);
-	}
-	if (!push_swap_init(argc, argv, &a, &b))
-	{
-		ft_putstr_fd("Error\n", 2);
-		return (0);
-	}
-	push_swap(a, b, argc - 1);
+	if (!args_validate(argc, argv, &size))
+		return error();
+	printf("size: %d\n", size);
+	if (!push_swap_init(argc, argv, size, &a, &b))
+		return error();
+	push_swap(a, b, size - 1);
 	free(a);
 	free(b);
 	return (0);

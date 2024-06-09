@@ -29,36 +29,23 @@ void	move_swap(t_record *r, t_stack *a, int n)
 		record_move(r, MV_SB);
 }
 
-void	move_pa(t_record *r, t_stack *a, t_stack *b, int n)
+void	move_push(t_record *r, t_stack *from, t_stack *to, int n)
 {
-	int	b_top;
-	int	a_top;
+	int	to_top;
+	int	from_top;
 
-	if (b->count == 0)
+	if (from->count == 0)
 		return ;
-	b_top = n - b->count;
-	a_top = n - a->count - 1;
-	a->arr[a_top] = b->arr[b_top];
-	b->arr[b_top] = -1;
-	a->count++;
-	b->count--;
-	record_move(r, MV_PA);
-}
-
-void	move_pb(t_record *r, t_stack *a, t_stack *b, int n)
-{
-	int	b_top;
-	int	a_top;
-
-	if (a->count == 0)
-		return ;
-	b_top = n - b->count - 1;
-	a_top = n - a->count;
-	b->arr[b_top] = a->arr[a_top];
-	a->arr[a_top] = -1;
-	b->count++;
-	a->count--;
-	record_move(r, MV_PB);
+	to_top = n - to->count - 1;
+	from_top = n - from->count;
+	to->arr[to_top] = from->arr[from_top];
+	from->arr[from_top] = -1;
+	to->count++;
+	from->count--;
+	if (to->id == STACK_A)
+		record_move(r, MV_PA);
+	else
+		record_move(r, MV_PB);
 }
 
 void	move_rotate(t_record *r, t_stack *s, int n)

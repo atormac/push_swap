@@ -11,37 +11,27 @@ int *array_alloc(int n)
 	return (ret);
 }
 
+#include <string.h>
+#include <stdio.h>
+
 void	array_fill(int *arr, int n, char **argv)
 {
-	int	i;
+	char	*token;
+	int		i;
+	int		j;
 
-	i = 0;
+	i = 1;
+	j = 0;
 	while (i < n)
 	{
-		arr[i] = ft_atoi(argv[i + 1]);
-		i++;
-	}
-}
-
-void	ft_sort_arr(int *tab, int size)
-{
-	int		tmp;
-	int		x;
-	int		i;
-
-	i = 0;
-	while (i < size)
-	{
-		x = i + 1;
-		while (x < size)
+		printf("argv[%d]: %s\n", i, argv[i]);
+		token = ft_strtok(argv[i], " ");
+		while (token != NULL)
 		{
-			if (tab[i] > tab[x])
-			{
-				tmp = tab[i];
-				tab[i] = tab[x];
-				tab[x] = tmp;
-			}
-			x++;
+			printf("token: %s\n", token);
+			arr[j] = ft_atoi(token);
+			j++;
+			token = ft_strtok(NULL, " ");
 		}
 		i++;
 	}
@@ -59,16 +49,16 @@ int	find_index(int *arr, int n, int value)
 	return (-1);
 }
 
-void	array_normalize(int *arr, int n)
+int	array_normalize(int *arr, int n)
 {
 	int	*tab;
 	int	i;
 
 	tab = array_alloc(n);
 	if (!tab)
-		return ;
+		return (0);
 	ft_memcpy(tab, arr, n * sizeof(int));
-	ft_sort_arr(tab, n);
+	sort_array(tab, n);
 	i = 0;
 	while (i < n)
 	{
@@ -76,6 +66,7 @@ void	array_normalize(int *arr, int n)
 		i++;
 	}
 	free(tab);
+	return (1);
 }
 
 int	array_is_sorted(int *arr, int n)

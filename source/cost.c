@@ -33,3 +33,43 @@ int	cost_down(t_stack *s, int n, int low, int high)
 	}
 	return (move_count);
 }
+
+int	cost_min(int *arr, int count)
+{
+	int i = 0;
+	int	min;
+	int	min_index;
+
+	min = arr[0];
+	min_index = 0;
+	while (i < count)
+	{
+		if (arr[i] < min)
+		{
+			min = arr[i];
+			min_index = i;
+		}
+		i++;
+	}
+	return (min_index);
+}
+
+int	cost_max(int *arr, int count)
+{
+	int i = 0;
+	int	max;
+	int	max_index;
+
+	max = arr[0];
+	max_index = 0;
+	while (i < count)
+	{
+		if (arr[i] > max)
+		{
+			max = arr[i];
+			max_index = i;
+		}
+		i++;
+	}
+	return (max_index);
+}

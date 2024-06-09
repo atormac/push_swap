@@ -32,6 +32,9 @@ typedef struct t_write_state
 	ssize_t	ret_val;
 }	t_write_state;
 
+char	*ft_strpbrk(char *s1, const char *s2);
+char	*ft_strtok(char *s, const char *delim);
+char	*ft_strtok_strict(char *s, const char *delim);
 void	ft_write(struct t_write_state *ws, char *buf, size_t buf_size);
 void	print_char(struct t_write_state *ws, int c);
 void	print_string(struct t_write_state *ws, char *str);

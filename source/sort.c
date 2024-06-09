@@ -13,44 +13,28 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-int	get_min_dist(int *arr, int count)
+void	sort_array(int *tab, int size)
 {
-	int i = 0;
-	int	min;
-	int	min_index;
+	int		tmp;
+	int		x;
+	int		i;
 
-	min = arr[0];
-	min_index = 0;
-	while (i < count)
+	i = 0;
+	while (i < size)
 	{
-		if (arr[i] < min)
+		x = i + 1;
+		while (x < size)
 		{
-			min = arr[i];
-			min_index = i;
+			if (tab[i] > tab[x])
+			{
+				tmp = tab[i];
+				tab[i] = tab[x];
+				tab[x] = tmp;
+			}
+			x++;
 		}
 		i++;
 	}
-	return (min_index);
-}
-
-int	get_max_dist(int *arr, int count)
-{
-	int i = 0;
-	int	max;
-	int	max_index;
-
-	max = arr[0];
-	max_index = 0;
-	while (i < count)
-	{
-		if (arr[i] > max)
-		{
-			max = arr[i];
-			max_index = i;
-		}
-		i++;
-	}
-	return (max_index);
 }
 
 void	sort_three(t_record *r, t_stack *s, int n)
@@ -60,8 +44,8 @@ void	sort_three(t_record *r, t_stack *s, int n)
 	int	smallest;
 
 	top_stack = s->arr + n - s->count;
-	greatest = get_max_dist(top_stack, s->count);
-	smallest = get_min_dist(top_stack, s->count);
+	greatest = cost_max(top_stack, s->count);
+	smallest = cost_min(top_stack, s->count);
 	if (greatest == 2)
 		move_swap(r, s, n);
 	else if (greatest == 0 && smallest == 2)
@@ -78,4 +62,33 @@ void	sort_three(t_record *r, t_stack *s, int n)
 		move_rotate(r, s, n);
 	else if (greatest == 1 && smallest == 2)
 		move_rev_rotate(r, s, n);
+}
+
+void	sort_chunked(t_record *r, t_stacks *stacks)
+{
+	int	chunk_size;
+	int	chunk_count;
+
+	chunk_size = stacks->size / CHUNK_COUNT;
+	if (chunk_size == 0)
+		chunk_size = 1;
+	chunk_count = stacks->size / chunk_size;
+	chunk_push(r, stacks, chunk_count, chunk_size);
+	if (!array_is_sorted(stacks->a->arr, stacks->size))
+		sort_three(r, stacks->a, stacks->size);
+	chunk_push_back(r, stacks->a, stacks->b, stacks->size);
+}
+
+void	sort_stack(t_record *r, t_stacks *stacks)
+{
+	if (stacks->size == 2)
+		move_swap(r, stacks->a, stacks->size);
+	else if (stacks->size == 3)
+		sort_three(r, stacks->a, stacks->size);
+	else
+		sort_chunked(r, stacks);
+	if (!r->str)
+		return ;
+	ft_putstr_fd(r->str, 1);
+	free(r->str);
 }

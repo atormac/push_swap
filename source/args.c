@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
+#include "push_swap.h"
 
 int is_digit_str(char *s)
 {
@@ -56,19 +57,42 @@ int is_overflow(char *s)
 	return (0);
 }
 
-int	args_validate(int argc, char **argv)
+int	is_token_valid(char *token)
 {
+	if (*token == '\0')
+		return (0);
+	if (!is_digit_str(token))
+		return (0);
+	if (is_overflow(token))
+		return (0);
+	return (1);
+}
+
+int	args_validate(int argc, char **argv, int *out_size)
+{
+	char	*str;
+	char	*token;
 	int	i;
 
 	i = 1;
+	*out_size = 0;
 	while (i < argc)
 	{
-		if (!is_digit_str(argv[i]))
+		str = ft_strdup(argv[i]);
+		if (!str)
 			return (0);
-		if (!is_duplicate_str(argv[i], i - 1, argv))
-			return (0);
-		if (is_overflow(argv[i]))
-			return (0);
+		token = ft_strtok_strict(str, " ");
+		while (token != NULL)
+		{
+			if (!is_token_valid(token))
+			{
+				free(str);
+				return (0);
+			}
+			*out_size = *out_size + 1;
+			token = ft_strtok_strict(NULL, " ");
+		}
+		free(str);
 		i++;
 	}
 	return (1);

@@ -14,7 +14,7 @@ NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SOURCE_DIR = source
-SOURCES = main.c args.c array.c stack.c move.c record.c sort.c cost.c
+SOURCES = main.c args.c array.c stack.c move.c record.c chunk.c sort.c cost.c
 OBJECTS = $(addprefix $(SOURCE_DIR)/,$(SOURCES:.c=.o))
 LIBDIR = ./libft
 
