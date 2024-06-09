@@ -11,10 +11,7 @@ int *array_alloc(int n)
 	return (ret);
 }
 
-#include <string.h>
-#include <stdio.h>
-
-void	array_fill(int *arr, int n, char **argv)
+int	array_fill(int *arr, int n, char **argv)
 {
 	char	*token;
 	int		i;
@@ -24,17 +21,18 @@ void	array_fill(int *arr, int n, char **argv)
 	j = 0;
 	while (i < n)
 	{
-		printf("argv[%d]: %s\n", i, argv[i]);
 		token = ft_strtok(argv[i], " ");
 		while (token != NULL)
 		{
-			printf("token: %s\n", token);
 			arr[j] = ft_atoi(token);
+			if (has_duplicates(arr, j))
+				return (0);
 			j++;
 			token = ft_strtok(NULL, " ");
 		}
 		i++;
 	}
+	return (1);
 }
 
 int	find_index(int *arr, int n, int value)

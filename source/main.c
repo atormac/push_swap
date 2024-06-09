@@ -18,7 +18,6 @@ int	error()
 	return (0);
 }
 
-#include <stdio.h>
 int	push_swap_init(int argc, char **argv, int size, int **a, int **b)
 {
 	int	n;
@@ -26,14 +25,12 @@ int	push_swap_init(int argc, char **argv, int size, int **a, int **b)
 	n = size - 1;
 	*a = array_alloc(n);
 	*b = array_alloc(n);
-	if (!*a || !*b)
+	if (!*a || !*b || !array_fill(*a, argc, argv))
 	{
 		free(*a);
 		free(*b);
 		return (0);
 	}
-	array_fill(*a, argc, argv);
-	printf("array filled\n");
 	return (1);
 }
 
@@ -60,7 +57,7 @@ int push_swap(int *a, int *b, int n)
 	sort_stack(&r, &stacks);
 	return (1);
 }
-#include <stdio.h>
+
 int main(int argc, char **argv)
 {
 	int	size;
@@ -71,7 +68,6 @@ int main(int argc, char **argv)
 		return (0);
 	if (!args_validate(argc, argv, &size))
 		return error();
-	printf("size: %d\n", size);
 	if (!push_swap_init(argc, argv, size, &a, &b))
 		return error();
 	push_swap(a, b, size - 1);

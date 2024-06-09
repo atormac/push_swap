@@ -26,22 +26,19 @@ int is_digit_str(char *s)
 	return (1);
 }
 
-int is_duplicate_str(char *s, int i, char **argv)
+int has_duplicates(int *arr, int i)
 {
-	int	s_len;
-	int	arg_len;
+	int	val;
 
-	while (i >= 1)
+	val = arr[i];
+	i--;
+	while (i >= 0)
 	{
-		s_len = ft_strlen(s);
-		arg_len = ft_strlen(argv[i]);
-		if (arg_len > s_len)
-			s_len = arg_len;
-		if (ft_strncmp(s, argv[i], s_len) == 0)
-			return (0);
+		if (arr[i] == val)
+			return (1);
 		i--;
 	}
-	return (1);
+	return (0);
 }
 
 int is_overflow(char *s)
