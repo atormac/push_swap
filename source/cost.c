@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:15:45 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 15:17:31 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 20:26:04 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	cost_down(t_stack *s, int n, int low, int high)
 
 	move_count = 1;
 	i = n - 1;
-	while (i >= s->count)
+	while (i >= (n - s->count))
 	{
 		if (s->arr[i] >= low && s->arr[i] <= high)
 			break ;

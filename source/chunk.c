@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:14:39 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 18:06:43 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 20:34:47 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	chunk_push(t_record *r, t_stacks *stacks, int chunk_cnt, int chunk_sz)
 				chunk.high -= 3;
 			chunk_rotate_top(r, stacks->a, stacks->size, &chunk);
 			move_push(r, stacks->a, stacks->b, stacks->size);
-			if (stacks->b->arr[stacks->size - stacks->b->count] <= median)
+			if (stacks->b->arr[stacks->size - stacks->b->count] < median)
 				move_rotate(r, stacks->b, stacks->size);
 		}
 		chunk_cnt--;

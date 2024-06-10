@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:01:51 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 15:24:20 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 20:35:45 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	stack_init(t_stacks *stacks, t_stack *a, t_stack *b, int n)
 	stacks->b = b;
 }
 
-/*
-void	stack_print(t_stack *a_stack, t_stack *b_stack, int n)
+/*void	stack_print(t_stack *a_stack, t_stack *b_stack, int n)
 {
 	int i;
 	int	*a;
@@ -39,4 +38,5 @@ void	stack_print(t_stack *a_stack, t_stack *b_stack, int n)
 		ft_putstr_fd("\n", 1);
 		i++;
 	}
-}*/
+}
+*/
