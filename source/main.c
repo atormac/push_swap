@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/06 15:48:55 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 13:00:09 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	push_swap_init(int argc, char **argv, int size, int **a, int **b)
 	int	n;
 
 	n = size - 1;
-	*a = array_alloc(n);
-	*b = array_alloc(n);
+	*a = array_alloc(n + 1);
+	*b = array_alloc(n + 1);
 	if (!*a || !*b || !array_fill(*a, argc, argv))
 	{
 		free(*a);
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 		return error();
 	if (!push_swap_init(argc, argv, size, &a, &b))
 		return error();
-	push_swap(a, b, size - 1);
+	push_swap(a, b, size);
 	free(a);
 	free(b);
 	return (0);

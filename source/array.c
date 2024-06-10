@@ -1,5 +1,6 @@
 #include "push_swap.h"
 
+#include <stdio.h>
 int *array_alloc(int n)
 {
 	int	*ret;

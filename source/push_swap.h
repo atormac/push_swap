@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/06 15:36:44 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 13:45:43 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ enum
 	MV_EMPTY,
 	MV_SA,
 	MV_SB,
-	MV_SS,
 	MV_PA,
 	MV_PB,
 	MV_RA,
 	MV_RRA,
 	MV_RB,
-	MV_RRB
+	MV_RRB,
+	MV_RR
 };
 
 int		has_duplicates(int *arr, int i);
