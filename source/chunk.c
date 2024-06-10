@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:14:39 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 17:17:18 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 18:06:43 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ void	chunk_push_back(t_record *r, t_stack *a, t_stack *b, int n)
 {
 	t_chunk	chunk;
 	int		i;
+	int		range;
 
-	while (b->count > 1)
+	range = 2;
+	while (b->count >= range)
 	{
 		chunk.high = b->count - 1;
-		chunk.low = b->count - 2;
-		i = 2;
+		chunk.low = b->count - range;
+		i = range;
 		while (i--)
 		{
 			chunk_rotate_top(r, b, n, &chunk);
