@@ -6,13 +6,15 @@
 #    By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 14:16:39 by atorma            #+#    #+#              #
-#    Updated: 2024/06/10 12:39:23 by atorma           ###   ########.fr        #
+#    Updated: 2024/06/10 17:27:57 by atorma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
+debug: CFLAGS += -g -fsanitize=address
+debug: $(NAME)
 SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		  ft_toupper.c ft_tolower.c \
 		  ft_strlen.c ft_strchr.c ft_strrchr.c \
@@ -35,9 +37,6 @@ OBJECTS = $(SOURCES:.c=.o)
 B_OBJECTS = $(B_SOURCES:.c=.o)
 
 all: $(NAME)
-
-debug: CFLAGS += -g -fsanitize=address
-debug: $(NAME)
 
 $(NAME): $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)

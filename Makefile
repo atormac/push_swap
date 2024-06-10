@@ -6,22 +6,21 @@
 #    By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 21:09:57 by atorma            #+#    #+#              #
-#    Updated: 2024/06/10 14:43:08 by atorma           ###   ########.fr        #
+#    Updated: 2024/06/10 17:24:49 by atorma           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+debug: CFLAGS += -g -fsanitize=address
+debug: clean_obj all
 SOURCE_DIR = source
 SOURCES = main.c args.c array.c stack.c move.c record.c chunk.c sort.c cost.c
 OBJECTS = $(addprefix $(SOURCE_DIR)/,$(SOURCES:.c=.o))
 LIBDIR = ./libft
 
 all: $(NAME)
-
-debug: CFLAGS += -g -fsanitize=address
-debug: clean_obj all
 
 $(NAME): $(OBJECTS)
 	$(MAKE) -C $(LIBDIR)
