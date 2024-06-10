@@ -6,25 +6,13 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:41:37 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 15:24:59 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:23:53 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	record_init(t_record *r)
-{
-	r->buffer_size = 0;
-	r->move_count = 0;
-	r->last_move = MV_EMPTY;
-	r->str = ft_calloc(1, 2048);
-	if (r->str == NULL)
-		return (0);
-	r->buffer_size = 2048;
-	return (1);
-}
-
-void	move_get(char *str, int move)
+static void	move_get(char *str, int move)
 {
 	char	*mv;
 
@@ -49,6 +37,24 @@ void	move_get(char *str, int move)
 	ft_strlcpy(str, mv, ft_strlen(mv) + 1);
 }
 
+static void	move_write(t_record *r, char	*mv)
+{
+	ft_strlcat(r->str, mv, r->buffer_size);
+	ft_strlcat(r->str, "\n", r->buffer_size);
+}
+
+int	record_init(t_record *r)
+{
+	r->buffer_size = 0;
+	r->move_count = 0;
+	r->last_move = MV_EMPTY;
+	r->str = ft_calloc(1, 2048);
+	if (r->str == NULL)
+		return (0);
+	r->buffer_size = 2048;
+	return (1);
+}
+
 int	record_append_str(t_record *r, int move)
 {
 	char	mv[16];
@@ -59,24 +65,16 @@ int	record_append_str(t_record *r, int move)
 		if (move == MV_RA)
 		{
 			move_get(mv, MV_RR);
-			ft_strlcat(r->str, mv, r->buffer_size);
-			ft_strlcat(r->str, "\n", r->buffer_size);
+			move_write(r, mv);
 			r->last_move = MV_RR;
 			return (1);
 		}
-		else
-		{
-			move_get(mv, r->last_move);
-			ft_strlcat(r->str, mv, r->buffer_size);
-			ft_strlcat(r->str, "\n", r->buffer_size);
-			move_get(mv, move);
-		}
+		move_get(mv, r->last_move);
+		move_write(r, mv);
+		move_get(mv, move);
 	}
 	if (move != MV_RB)
-	{
-		ft_strlcat(r->str, mv, r->buffer_size);
-		ft_strlcat(r->str, "\n", r->buffer_size);
-	}
+		move_write(r, mv);
 	r->last_move = move;
 	return (1);
 }
@@ -84,6 +82,7 @@ int	record_append_str(t_record *r, int move)
 int	record_move(t_record *r, int move)
 {
 	char	*new;
+
 	if (r->buffer_size - ft_strlen(r->str) < 32)
 	{
 		new = ft_calloc(1, r->buffer_size + 1024);

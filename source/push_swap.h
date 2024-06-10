@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 15:27:20 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:10:20 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ enum
 	STACK_A,
 	STACK_B
 };
+
+typedef struct t_chunk
+{
+	int	low;
+	int	high;
+}	t_chunk;
 
 typedef struct t_stack
 {
@@ -77,9 +83,9 @@ void	move_rotate(t_record *r, t_stack *s, int n);
 void	move_rev_rotate(t_record *r, t_stack *s, int n);
 int		record_init(t_record *r);
 int		record_move(t_record *r, int move);
-void	chunk_rotate_top(t_record *r, t_stack *a, int n, int low, int high);
+void	chunk_rotate_top(t_record *r, t_stack *a, int n, t_chunk *chunk);
 void	chunk_push_back(t_record *r, t_stack *a, t_stack *b, int n);
-void	chunk_push(t_record *r, t_stacks *stacks, int chunk_count, int chunk_size);
+void	chunk_push(t_record *r, t_stacks *stacks, int c_count, int c_size);
 void	sort_array(int *tab, int size);
 void	sort_three(t_record *r, t_stack *s, int n);
 void	sort_chunked(t_record *r, t_stacks *stacks);

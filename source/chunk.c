@@ -6,47 +6,46 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:14:39 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 15:15:27 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:13:54 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	chunk_rotate_top(t_record *r, t_stack *a, int n, int low, int high)
+void	chunk_rotate_top(t_record *r, t_stack *s, int size, t_chunk *chunk)
 {
 	int	top;
-	int	mv_count_top;
-	int	mv_count_bottom;
+	int	moves_top;
+	int	moves_down;
 
-	top = a->arr[n - a->count];
-	mv_count_top = cost_top(a, n, low, high);
-	mv_count_bottom = cost_down(a, n, low, high);
+	top = s->arr[size - s->count];
+	moves_top = cost_top(s, size, chunk->low, chunk->high);
+	moves_down = cost_down(s, size, chunk->low, chunk->high);
 	while (1)
 	{
-		if (top >= low && top <= high)
+		if (top >= chunk->low && top <= chunk->high)
 			break ;
-		if (mv_count_bottom < mv_count_top)
-			move_rev_rotate(r, a, n);
+		if (moves_down < moves_top)
+			move_rev_rotate(r, s, size);
 		else
-			move_rotate(r, a, n);
-		top = a->arr[n - a->count];
+			move_rotate(r, s, size);
+		top = s->arr[size - s->count];
 	}
 }
 
 void	chunk_push_back(t_record *r, t_stack *a, t_stack *b, int n)
 {
-	int	i;
-	int	high;
-	int	low;
+	t_chunk	chunk;
+	int		i;
 
 	while (b->count > 1)
 	{
-		high = b->count - 1;
-		low = b->count - 2;
+		chunk.high = b->count - 1;
+		chunk.low = b->count - 2;
 		i = 2;
 		while (i--)
 		{
-			chunk_rotate_top(r, b, n, low, high);
+			chunk_rotate_top(r, b, n, &chunk);
 			move_push(r, b, a, n);
 		}
 		if (a->arr[n - a->count] > a->arr[n - a->count + 1])
@@ -60,30 +59,29 @@ void	chunk_push_back(t_record *r, t_stack *a, t_stack *b, int n)
 	}
 }
 
-void	chunk_push(t_record *r, t_stacks *stacks, int chunk_count, int chunk_size)
+void	chunk_push(t_record *r, t_stacks *stacks, int chunk_cnt, int chunk_sz)
 {
-	int	i;
-	int	low;
-	int	high;
-	int	median;
+	t_chunk	chunk;
+	int		i;
+	int		median;
 
-	while (chunk_count > 0)
+	while (chunk_cnt > 0)
 	{
-		low = stacks->b->count;
-		if (chunk_count == 1)
-			chunk_size += stacks->size % chunk_size;
-		i = chunk_size;
+		chunk.low = stacks->b->count;
+		if (chunk_cnt == 1)
+			chunk_sz += stacks->size % chunk_sz;
+		i = chunk_sz;
 		while (stacks->a->count > 3 && i-- > 0)
 		{
-			median = low + (chunk_size / 2);
-			high = low + chunk_size - 1;
-			if (chunk_count == 1)
-				high -= 3;
-			chunk_rotate_top(r, stacks->a, stacks->size, low, high);
+			median = chunk.low + (chunk_sz / 2);
+			chunk.high = chunk.low + chunk_sz - 1;
+			if (chunk_cnt == 1)
+				chunk.high -= 3;
+			chunk_rotate_top(r, stacks->a, stacks->size, &chunk);
 			move_push(r, stacks->a, stacks->b, stacks->size);
 			if (stacks->b->arr[stacks->size - stacks->b->count] < median)
 				move_rotate(r, stacks->b, stacks->size);
 		}
-		chunk_count--;
+		chunk_cnt--;
 	}
 }

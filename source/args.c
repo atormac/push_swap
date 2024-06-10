@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:36:58 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 15:13:39 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:19:31 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,42 +54,43 @@ int	is_overflow(char *s)
 	return (0);
 }
 
-int	is_token_valid(char *token)
+int	is_arg_valid(char *str, int *out_size)
 {
-	if (*token == '\0')
+	char	*token;
+
+	if (*str == '\0' || str[ft_strlen(str) - 1] == ' ')
 		return (0);
-	if (!is_digit_str(token))
-		return (0);
-	if (is_overflow(token))
-		return (0);
+	token = ft_strtok_strict(str, " ");
+	while (token != NULL)
+	{
+		if (*token == '\0')
+			return (0);
+		if (!is_digit_str(token))
+			return (0);
+		if (is_overflow(token))
+			return (0);
+		*out_size = *out_size + 1;
+		token = ft_strtok_strict(NULL, " ");
+	}
 	return (1);
 }
 
 int	args_validate(int argc, char **argv, int *out_size)
 {
 	char	*str;
-	char	*token;
 	int		i;
 
 	i = 1;
 	*out_size = 0;
 	while (i < argc)
 	{
-		if (argv[i][0] == '\0' || argv[i][ft_strlen(argv[i]) - 1] == ' ')
-			return (0);
 		str = ft_strdup(argv[i]);
 		if (!str)
 			return (0);
-		token = ft_strtok_strict(str, " ");
-		while (token != NULL)
+		if (!is_arg_valid(str, out_size))
 		{
-			if (!is_token_valid(token))
-			{
-				free(str);
-				return (0);
-			}
-			*out_size = *out_size + 1;
-			token = ft_strtok_strict(NULL, " ");
+			free(str);
+			return (0);
 		}
 		free(str);
 		i++;

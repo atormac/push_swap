@@ -6,25 +6,29 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 15:19:00 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:30:02 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	error(void)
+static int	error(void)
 {
 	ft_putstr_fd("Error\n", 2);
 	return (0);
 }
 
-int	push_swap_init(int argc, char **argv, int size, int **a, int **b)
+static void	push_swap_alloc(int size, int **a, int **b)
 {
 	int	n;
 
 	n = size - 1;
 	*a = array_alloc(n + 1);
 	*b = array_alloc(n + 1);
+}
+
+static int	push_swap_fill(int argc, char **argv, int **a, int **b)
+{
 	if (!*a || !*b || !array_fill(*a, argc, argv))
 	{
 		free(*a);
@@ -34,7 +38,7 @@ int	push_swap_init(int argc, char **argv, int size, int **a, int **b)
 	return (1);
 }
 
-int	push_swap(int *a, int *b, int n)
+static int	push_swap(int *a, int *b, int n)
 {
 	struct t_stacks	stacks;
 	struct t_stack	a_stack;
@@ -68,7 +72,8 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!args_validate(argc, argv, &size))
 		return (error());
-	if (!push_swap_init(argc, argv, size, &a, &b))
+	push_swap_alloc(size, &a, &b);
+	if (!push_swap_fill(argc, argv, &a, &b))
 		return (error());
 	push_swap(a, b, size);
 	free(a);
