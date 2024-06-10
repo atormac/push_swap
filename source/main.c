@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 16:30:02 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 21:33:44 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ static int	push_swap(int *a, int *b, int n)
 	b_stack.id = STACK_B;
 	stack_init(&stacks, &a_stack, &b_stack, n);
 	sort_stack(&r, &stacks);
+	if (r.str == NULL)
+		return (error());
+	ft_putstr_fd(r.str, 1);
+	free(r.str);
 	return (1);
 }
 

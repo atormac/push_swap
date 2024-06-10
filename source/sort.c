@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:16:09 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 20:32:04 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 21:34:18 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,4 @@ void	sort_stack(t_record *r, t_stacks *stacks)
 		sort_three(r, stacks->a, stacks->size);
 	else
 		sort_chunked(r, stacks);
-	if (!r->str)
-		return ;
-	ft_putstr_fd(r->str, 1);
-	free(r->str);
 }

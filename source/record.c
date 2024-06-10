@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:41:37 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 16:23:53 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 21:30:07 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	record_append_str(t_record *r, int move)
 {
 	char	mv[16];
 
+	if (r->str == NULL)
+		return (0);
 	move_get(mv, move);
 	if (r->last_move == MV_RB)
 	{
@@ -87,7 +89,11 @@ int	record_move(t_record *r, int move)
 	{
 		new = ft_calloc(1, r->buffer_size + 1024);
 		if (!new)
+		{
+			free(r->str);
+			r->str = NULL;
 			return (0);
+		}
 		ft_memcpy(new, r->str, r->buffer_size);
 		free(r->str);
 		r->str = new;
