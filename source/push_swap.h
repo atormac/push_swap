@@ -6,14 +6,14 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 13:45:43 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:27:20 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-
 #ifndef PUSH_SWAP_H
-# define PUSH_WAP_H
+# define PUSH_SWAP_H
+
+# include "../libft/libft.h"
 
 # define CHUNK_COUNT 5
 
@@ -33,8 +33,8 @@ typedef struct t_stack
 typedef struct t_stacks
 {
 	long	size;
-	t_stack *a;
-	t_stack *b;
+	t_stack	*a;
+	t_stack	*b;
 }	t_stacks;
 
 typedef struct t_record

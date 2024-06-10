@@ -1,19 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chunk.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 15:14:39 by atorma            #+#    #+#             */
+/*   Updated: 2024/06/10 15:15:27 by atorma           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
 void	chunk_rotate_top(t_record *r, t_stack *a, int n, int low, int high)
 {
+	int	top;
 	int	mv_count_top;
 	int	mv_count_bottom;
 
+	top = a->arr[n - a->count];
 	mv_count_top = cost_top(a, n, low, high);
 	mv_count_bottom = cost_down(a, n, low, high);
-	int	top = a->arr[n - a->count];
-
 	while (1)
 	{
 		if (top >= low && top <= high)
-			break;
+			break ;
 		if (mv_count_bottom < mv_count_top)
 			move_rev_rotate(r, a, n);
 		else

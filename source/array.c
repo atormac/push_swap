@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   array.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 15:13:47 by atorma            #+#    #+#             */
+/*   Updated: 2024/06/10 15:14:23 by atorma           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-#include <stdio.h>
-int *array_alloc(int n)
+int	*array_alloc(int n)
 {
 	int	*ret;
 
@@ -38,7 +49,9 @@ int	array_fill(int *arr, int n, char **argv)
 
 int	find_index(int *arr, int n, int value)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (i < n)
 	{
 		if (arr[i] == value)

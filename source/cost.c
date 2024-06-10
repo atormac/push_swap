@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cost.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 15:15:45 by atorma            #+#    #+#             */
+/*   Updated: 2024/06/10 15:17:31 by atorma           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	cost_top(t_stack *s, int n, int low, int high)
 {
-	int i;
+	int	i;
 	int	move_count;
 
 	move_count = 0;
@@ -10,7 +22,7 @@ int	cost_top(t_stack *s, int n, int low, int high)
 	while (i < n)
 	{
 		if (s->arr[i] >= low && s->arr[i] <= high)
-			break;
+			break ;
 		i++;
 		move_count++;
 	}
@@ -19,7 +31,7 @@ int	cost_top(t_stack *s, int n, int low, int high)
 
 int	cost_down(t_stack *s, int n, int low, int high)
 {
-	int i;
+	int	i;
 	int	move_count;
 
 	move_count = 1;
@@ -27,7 +39,7 @@ int	cost_down(t_stack *s, int n, int low, int high)
 	while (i >= s->count)
 	{
 		if (s->arr[i] >= low && s->arr[i] <= high)
-			break;
+			break ;
 		i--;
 		move_count++;
 	}
@@ -36,10 +48,11 @@ int	cost_down(t_stack *s, int n, int low, int high)
 
 int	cost_min(int *arr, int count)
 {
-	int i = 0;
+	int	i;
 	int	min;
 	int	min_index;
 
+	i = 0;
 	min = arr[0];
 	min_index = 0;
 	while (i < count)
@@ -56,10 +69,11 @@ int	cost_min(int *arr, int count)
 
 int	cost_max(int *arr, int count)
 {
-	int i = 0;
+	int	i;
 	int	max;
 	int	max_index;
 
+	i = 0;
 	max = arr[0];
 	max_index = 0;
 	while (i < count)

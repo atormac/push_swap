@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:16 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 19:47:38 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:19:23 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	move_swap(t_record *r, t_stack *a, int n)
 {
 	int	top;
 	int	tmp;
+
 	if (a->count <= 1)
 		return ;
-
 	top = n - a->count;
 	tmp = a->arr[top + 1];
 	a->arr[top + 1] = a->arr[top];

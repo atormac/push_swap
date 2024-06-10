@@ -6,14 +6,14 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:36:58 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/03 21:00:55 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:13:39 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "push_swap.h"
 
-int is_digit_str(char *s)
+int	is_digit_str(char *s)
 {
 	if (*s == '-' && *(s + 1))
 		s++;
@@ -26,7 +26,7 @@ int is_digit_str(char *s)
 	return (1);
 }
 
-int has_duplicates(int *arr, int i)
+int	has_duplicates(int *arr, int i)
 {
 	int	val;
 
@@ -41,7 +41,7 @@ int has_duplicates(int *arr, int i)
 	return (0);
 }
 
-int is_overflow(char *s)
+int	is_overflow(char *s)
 {
 	int	num;
 
@@ -69,12 +69,14 @@ int	args_validate(int argc, char **argv, int *out_size)
 {
 	char	*str;
 	char	*token;
-	int	i;
+	int		i;
 
 	i = 1;
 	*out_size = 0;
 	while (i < argc)
 	{
+		if (argv[i][0] == '\0' || argv[i][ft_strlen(argv[i]) - 1] == ' ')
+			return (0);
 		str = ft_strdup(argv[i]);
 		if (!str)
 			return (0);

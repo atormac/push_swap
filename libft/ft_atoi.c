@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:34:18 by atorma            #+#    #+#             */
-/*   Updated: 2024/05/22 22:26:03 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:12:25 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ static int	is_whitespace(char c)
 		|| c == '\f' || c == '\r')
 		return (1);
 	return (0);
+}
+
+static int	overflow_ret(const char *str)
+{
+	if (*str == '-')
+		return (0);
+	return (-1);
 }
 
 int	ft_atoi(const char *str)
@@ -38,11 +45,7 @@ int	ft_atoi(const char *str)
 		overflow = res;
 		res = res * 10 + (*s - '0');
 		if (overflow > res)
-		{
-			if (*str == '-')
-				return (0);
-			return (-1);
-		}
+			return (overflow_ret(str));
 		s++;
 	}
 	if (res != 0 && *str == '-')

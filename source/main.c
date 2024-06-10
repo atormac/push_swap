@@ -6,13 +6,13 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 13:00:09 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:19:00 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	error()
+int	error(void)
 {
 	ft_putstr_fd("Error\n", 2);
 	return (0);
@@ -34,12 +34,12 @@ int	push_swap_init(int argc, char **argv, int size, int **a, int **b)
 	return (1);
 }
 
-int push_swap(int *a, int *b, int n)
+int	push_swap(int *a, int *b, int n)
 {
-	struct t_stacks stacks;
+	struct t_stacks	stacks;
 	struct t_stack	a_stack;
 	struct t_stack	b_stack;
-	struct t_record r;
+	struct t_record	r;
 
 	if (array_is_sorted(a, n))
 		return (1);
@@ -58,7 +58,7 @@ int push_swap(int *a, int *b, int n)
 	return (1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	int	size;
 	int	*a;
@@ -67,9 +67,9 @@ int main(int argc, char **argv)
 	if (argc <= 1)
 		return (0);
 	if (!args_validate(argc, argv, &size))
-		return error();
+		return (error());
 	if (!push_swap_init(argc, argv, size, &a, &b))
-		return error();
+		return (error());
 	push_swap(a, b, size);
 	free(a);
 	free(b);

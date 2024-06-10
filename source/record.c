@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:41:37 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 14:17:42 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:24:59 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	record_init(t_record *r)
 void	move_get(char *str, int move)
 {
 	char	*mv;
+
 	if (move == MV_SA)
 		mv = "sa";
 	if (move == MV_SB)
