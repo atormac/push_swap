@@ -90,5 +90,6 @@ void	sort_array(int *tab, int size);
 void	sort_three(t_record *r, t_stack *s, int n);
 void	sort_chunked(t_record *r, t_stacks *stacks);
 void	sort_stack(t_record *r, t_stacks *stacks);
+void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
 
 #endif

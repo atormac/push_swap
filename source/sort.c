@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 void	sort_array(int *tab, int size)
 {
@@ -71,7 +70,7 @@ void	sort_chunked(t_record *r, t_stacks *stacks)
 
 	chunk_size = stacks->size / CHUNK_COUNT;
 	if (stacks->size >= 100)
-		chunk_size = stacks->size / 6;
+		chunk_size = stacks->size / 5;
 	if (stacks->size >= 150)
 		chunk_size = stacks->size / 10;
 	if (chunk_size == 0)

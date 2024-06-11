@@ -59,8 +59,6 @@ int	record_append_str(t_record *r, int move)
 {
 	char	mv[16];
 
-	if (r->str == NULL)
-		return (0);
 	move_get(mv, move);
 	if (r->last_move == MV_RB)
 	{
@@ -85,6 +83,8 @@ int	record_move(t_record *r, int move)
 {
 	char	*new;
 
+	if (r->str == NULL)
+		return (0);
 	if (r->buffer_size - ft_strlen(r->str) < 32)
 	{
 		new = ft_calloc(1, r->buffer_size + 1024);

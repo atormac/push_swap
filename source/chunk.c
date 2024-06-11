@@ -67,23 +67,24 @@ void	chunk_push(t_record *r, t_stacks *stacks, int chunk_cnt, int chunk_sz)
 	int		i;
 	int		median;
 
-	while (chunk_cnt > 0)
+	while (chunk_cnt-- > 0)
 	{
 		chunk.low = stacks->b->count;
 		if (chunk_cnt == 1)
 			chunk_sz += stacks->size % chunk_sz;
+		chunk.high = chunk.low + chunk_sz - 1;
+		if (chunk.high >= (stacks->size - 3))
+			chunk.high = stacks->size - 3 - 1;
+		if (chunk.high < chunk.low)
+			break ;
 		i = chunk_sz;
 		median = chunk.low + (chunk_sz / 2);
 		while (stacks->a->count > 3 && i-- > 0)
 		{
-			chunk.high = chunk.low + chunk_sz - 1;
-			if (chunk_cnt == 1)
-				chunk.high -= 3;
 			chunk_rotate_top(r, stacks->a, stacks->size, &chunk);
 			move_push(r, stacks->a, stacks->b, stacks->size);
 			if (stacks->b->arr[stacks->size - stacks->b->count] < median)
 				move_rotate(r, stacks->b, stacks->size);
 		}
-		chunk_cnt--;
 	}
 }
