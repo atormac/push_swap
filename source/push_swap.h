@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:13:48 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 20:35:31 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/11 17:07:19 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ enum
 };
 
 int		has_duplicates(int *arr, int i);
-int		args_validate(int argc, char **argv, int *out_size);
+int		args_validate(int argc, char **argv);
 int		*array_alloc(int n);
 int		array_fill(int *arr, int n, char **argv);
 int		array_normalize(int *arr, int n);
@@ -90,6 +90,5 @@ void	sort_array(int *tab, int size);
 void	sort_three(t_record *r, t_stack *s, int n);
 void	sort_chunked(t_record *r, t_stacks *stacks);
 void	sort_stack(t_record *r, t_stacks *stacks);
-void	stack_print(t_stack *a_stack, t_stack *b_stack, int n);
 
 #endif

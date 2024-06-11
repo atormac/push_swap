@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:13:47 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 15:14:23 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/11 16:35:45 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	*array_alloc(int n)
 
 int	array_fill(int *arr, int n, char **argv)
 {
-	char	*token;
 	int		i;
 	int		j;
 
@@ -33,15 +32,10 @@ int	array_fill(int *arr, int n, char **argv)
 	j = 0;
 	while (i < n)
 	{
-		token = ft_strtok(argv[i], " ");
-		while (token != NULL)
-		{
-			arr[j] = ft_atoi(token);
-			if (has_duplicates(arr, j))
-				return (0);
-			j++;
-			token = ft_strtok(NULL, " ");
-		}
+		arr[j] = ft_atoi(argv[i]);
+		if (has_duplicates(arr, j))
+			return (0);
+		j++;
 		i++;
 	}
 	return (1);

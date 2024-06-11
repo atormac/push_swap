@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:12:41 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 21:33:44 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/11 17:09:29 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ static int	error(void)
 
 static void	push_swap_alloc(int size, int **a, int **b)
 {
-	int	n;
-
-	n = size - 1;
-	*a = array_alloc(n + 1);
-	*b = array_alloc(n + 1);
+	*a = array_alloc(size);
+	*b = array_alloc(size);
 }
 
 static int	push_swap_fill(int argc, char **argv, int **a, int **b)
@@ -68,18 +65,17 @@ static int	push_swap(int *a, int *b, int n)
 
 int	main(int argc, char **argv)
 {
-	int	size;
 	int	*a;
 	int	*b;
 
-	if (argc <= 1)
-		return (0);
-	if (!args_validate(argc, argv, &size))
+	if (!args_validate(argc, argv))
 		return (error());
-	push_swap_alloc(size, &a, &b);
+	if (argc <= 2)
+		return (0);
+	push_swap_alloc(argc - 1, &a, &b);
 	if (!push_swap_fill(argc, argv, &a, &b))
 		return (error());
-	push_swap(a, b, size);
+	push_swap(a, b, argc - 1);
 	free(a);
 	free(b);
 	return (0);

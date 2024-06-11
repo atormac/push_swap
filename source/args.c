@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:36:58 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 16:19:31 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/11 17:03:37 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,45 +54,26 @@ int	is_overflow(char *s)
 	return (0);
 }
 
-int	is_arg_valid(char *str, int *out_size)
+int	is_arg_valid(char *str)
 {
-	char	*token;
-
-	if (*str == '\0' || str[ft_strlen(str) - 1] == ' ')
+	if (*str == '\0')
 		return (0);
-	token = ft_strtok_strict(str, " ");
-	while (token != NULL)
-	{
-		if (*token == '\0')
-			return (0);
-		if (!is_digit_str(token))
-			return (0);
-		if (is_overflow(token))
-			return (0);
-		*out_size = *out_size + 1;
-		token = ft_strtok_strict(NULL, " ");
-	}
+	if (!is_digit_str(str))
+		return (0);
+	if (is_overflow(str))
+		return (0);
 	return (1);
 }
 
-int	args_validate(int argc, char **argv, int *out_size)
+int	args_validate(int argc, char **argv)
 {
-	char	*str;
 	int		i;
 
 	i = 1;
-	*out_size = 0;
 	while (i < argc)
 	{
-		str = ft_strdup(argv[i]);
-		if (!str)
+		if (!is_arg_valid(argv[i]))
 			return (0);
-		if (!is_arg_valid(str, out_size))
-		{
-			free(str);
-			return (0);
-		}
-		free(str);
 		i++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: atorma <atorma@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:16:09 by atorma            #+#    #+#             */
-/*   Updated: 2024/06/10 21:42:06 by atorma           ###   ########.fr       */
+/*   Updated: 2024/06/11 16:12:50 by atorma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	sort_chunked(t_record *r, t_stacks *stacks)
 	if (stacks->size >= 100)
 		chunk_size = stacks->size / 5;
 	if (stacks->size >= 150)
-		chunk_size = stacks->size / 10;
+		chunk_size = stacks->size / 9;
 	if (chunk_size == 0)
 		chunk_size = 1;
 	chunk_count = stacks->size / chunk_size;
